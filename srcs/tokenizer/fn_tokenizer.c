@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fn_tokenizer.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/05 19:36:45 by kalhanaw          #+#    #+#             */
+/*   Updated: 2025/10/05 19:36:58 by kalhanaw         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tokenizer.h"
 
 static int	set_buffer(char **buf, char *str)
@@ -17,33 +29,32 @@ static int	handle_special(char *buf, char **p, t_token **head)
 	char	*str;
 
 	str = *p;
-	
 	buf[0] = *str;
 	buf[1] = '\0';
-	if ((str[0] == '<' && str[1] == '<') ||
-		(str[0] == '>' && str[1] == '>'))
+	if ((str[0] == '<' && str[1] == '<')
+		|| (str[0] == '>' && str[1] == '>'))
 	{
 		buf[1] = str[1];
 		buf[2] = '\0';
-		(*p) ++;
+		(*p)++;
 	}
 	current = tls_create (ft_strdup (buf));
 	if (tls_add_back (head, current) == -1)
-		return (-1); // print msg?
-	(*p) ++;
+		return (-1);
+	(*p)++;
 	return (1);
 }
 
 static int	handle_word(char *buf, char **str, t_token **head)
 {
-	int	i;
-	t_token *current;
+	int		i;
+	t_token	*current;
 
 	i = 0;
 	while (!fn_is_space (**str) && !fn_is_res (**str) && **str)
 	{
 		buf[i] = **str;
-		(*str) ++;
+		(*str)++;
 		i ++;
 	}
 	buf[i] = '\0';
@@ -60,7 +71,7 @@ static int	crawl(char *buf, char *str, t_token **head)
 		while (fn_is_space (*str))
 			str ++;
 		if (!*str)
-			break;
+			break ;
 		if (fn_is_res (*str))
 		{
 			if (handle_special (buf, &str, head) == -1)

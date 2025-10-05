@@ -1,16 +1,27 @@
-# ifndef TOKENIZER_H
-#	define TOKENIZER_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
+/*   Updated: 2025/10/05 19:42:41 by kalhanaw         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include "libft.h"
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
-typedef struct	s_token
+# include <stdio.h>
+# include <stdlib.h>
+# include "libft.h"
+
+typedef struct s_token
 {
 	char			*content;
 	struct s_token	*next;
 }	t_token;
-
 
 t_token	*tokenizer(char *str);
 

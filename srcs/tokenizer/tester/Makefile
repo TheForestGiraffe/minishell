@@ -27,8 +27,10 @@ $(OBJS_DIR)/%.o: ../%.c $(HEADER)
 
 clean:
 	rm -f $(OBJS)
+	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f test
+	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all

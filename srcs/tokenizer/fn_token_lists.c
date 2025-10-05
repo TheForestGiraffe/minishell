@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fn_token_lists.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/05 19:37:21 by kalhanaw          #+#    #+#             */
+/*   Updated: 2025/10/05 19:37:40 by kalhanaw         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tokenizer.h"
 
 int	tls_add_back(t_token **lst, t_token *new)
@@ -42,7 +54,7 @@ t_token	*tls_create(char *str)
 
 	new = malloc (sizeof (t_token));
 	if (!new)
-		return (NULL); // perror
+		return (NULL);
 	if (str)
 		new->content = str;
 	else
@@ -50,4 +62,3 @@ t_token	*tls_create(char *str)
 	new->next = NULL;
 	return (new);
 }
-
