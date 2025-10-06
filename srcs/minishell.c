@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/10/06 13:48:11 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/06 17:10:15 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "libft.h"
-#include "signals.h"
+#include "minishell.h"
 
 int main(void)
 {
