@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:36:45 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/05 19:36:58 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/10/06 11:17:35 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ static int	handle_special(char *buf, char **p, t_token **head)
 		(*p)++;
 	}
 	current = tls_create (ft_strdup (buf));
+	if (!current)
+		return (-1);
 	if (tls_add_back (head, current) == -1)
 		return (-1);
 	(*p)++;
@@ -59,6 +61,8 @@ static int	handle_word(char *buf, char **str, t_token **head)
 	}
 	buf[i] = '\0';
 	current = tls_create (ft_strdup (buf));
+	if (!current)
+		return (-1);
 	if (tls_add_back (head, current) == -1)
 		return (-1);
 	return (1);

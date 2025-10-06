@@ -9,7 +9,7 @@ void	print_list(t_token *ls_token)
 	}
 	while (ls_token->next)
 	{
-		printf (">%s<\n", ls_token->content);
+		printf ("%s\n", ls_token->content);
 		ls_token = ls_token->next;
 	}
 	printf (">%s<\n", ls_token->content);
@@ -25,8 +25,8 @@ int	main()
 	// char *str = "";
 	// char *str = "<<<<       ";
 	// char *str = "<		< <<       ";
-	// char *str = "       the \"Weather\"   is | very co<ld but it is not cold>>er 'than' yester<<day";
-	char *str = "<  >";
+	char *str = "       the \"Weather\"   is | very co<ld but it is not cold>>er 'than' yester<<day";
+	// char *str = "<  >";
 
 	ls_token = tokenizer(str);
 	if (!ls_token)
