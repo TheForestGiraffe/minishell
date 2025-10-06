@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/06 12:35:57 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/06 17:12:18 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,11 @@ NAME = minishell
 SRCS_DIR = srcs
 OBJS_DIR = objs
 
-SRCS = $(addprefix $(SRCS_DIR)/, minishell.c)
+SRCS = $(addprefix $(SRCS_DIR)/, minishell.c \
+								 signals.c)
 OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
 
-HEADER_DIR = include
+HEADER_DIR = srcs
 HEADER = $(HEADER_DIR)/minishell.h
 
 # Directories of all objects above
