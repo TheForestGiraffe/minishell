@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/10 22:23:28 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/11 01:09:19 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRC_DIR = src
 OBJ_DIR = obj
 
 SRC = $(addprefix $(SRC_DIR)/, minishell.c \
-								 signals.c)
+							   signals.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 HEADER_DIR = include
@@ -24,12 +24,12 @@ HEADER = $(HEADER_DIR)/minishell.h
 
 # Parser
 PARSER_SRC_DIR = src/parser
-PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_crawl.c \
-											   fn_helpers.c \
-											   fn_token_lists.c \
-											   fn_validate_tokens.c \
-											   parse.c \
-											   tokenizer.c)
+PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, crawl.c \
+											 helpers.c \
+											 token_lists.c \
+											 validate_tokens.c \
+											 parse.c \
+											 tokenizer.c)
 
 PARSER_OBJ_DIR = obj/parser
 PARSER_OBJ = $(patsubst $(PARSER_SRC_DIR)/%.c, \
