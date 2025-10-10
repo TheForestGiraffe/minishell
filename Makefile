@@ -6,40 +6,42 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/09 17:20:57 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/10 22:23:28 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell 
 
-SRCS_DIR = srcs
-OBJS_DIR = objs
+SRC_DIR = src
+OBJ_DIR = obj
 
-SRCS = $(addprefix $(SRCS_DIR)/, minishell.c \
+SRC = $(addprefix $(SRC_DIR)/, minishell.c \
 								 signals.c)
-OBJS = $(patsubst $(SRCS_DIR)/%.c, $(OBJS_DIR)/%.o, $(SRCS))
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 HEADER_DIR = include
 HEADER = $(HEADER_DIR)/minishell.h
 
 # Parser
-PARSER_SRCS_DIR = srcs/parser
-PARSER_SRCS = $(addprefix $(PARSER_SRCS_DIR)/, fn_crawl.c \
+PARSER_SRC_DIR = src/parser
+PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_crawl.c \
 											   fn_helpers.c \
 											   fn_token_lists.c \
+											   fn_validate_tokens.c \
+											   parse.c \
 											   tokenizer.c)
 
-PARSER_OBJS_DIR = objs/parser
-PARSER_OBJS = $(patsubst $(PARSER_SRCS_DIR)/%.c, \
-				$(PARSER_OBJS_DIR)/%.o, $(PARSER_SRCS))
+PARSER_OBJ_DIR = obj/parser
+PARSER_OBJ = $(patsubst $(PARSER_SRC_DIR)/%.c, \
+				$(PARSER_OBJ_DIR)/%.o, $(PARSER_SRC))
 
 PUB_PARSER_HEADER_DIR = include
-LOCAL_PARSER_HEADER_DIR = $(PARSER_SRCS_DIR)
+LOCAL_PARSER_HEADER_DIR = $(PARSER_SRC_DIR)
 PARSER_HEADERS = $(PUB_PARSER_HEADER_DIR)/parser.h \
 				 $(LOCAL_PARSER_HEADER_DIR)/local_parser.h
 
 # Directories of all objects above - only used to create obj folders
-OBJS_DIRS = $(OBJS_DIR) $(PARSER_OBJS_DIR)
+OBJ_DIRS = $(OBJ_DIR) $(PARSER_OBJ_DIR)
 
 # Libft
 LIBFT_DIR = libs/Libft-2.1.1
@@ -50,22 +52,22 @@ CFLAGS = -Wall -Wextra -Werror -I$(HEADER_DIR) \
 							   -I$(LOCAL_PARSER_HEADER_DIR) \
 							   -I$(LIBFT_HEADER_DIR)
 
-all: $(OBJS_DIRS) $(NAME)
+all: $(OBJ_DIRS) $(NAME)
 
 # Create all obj folders beforehand
-$(OBJS_DIRS):
+$(OBJ_DIRS):
 	mkdir -p $@
 
 # Compile minishell
-$(NAME): $(OBJS) $(PARSER_OBJS) $(LIBFT)
-	cc $(CFLAGS) $(OBJS) $(PARSER_OBJS) $(LIBFT) -lreadline -o $(NAME)
+$(NAME): $(OBJ) $(PARSER_OBJ) $(LIBFT)
+	cc $(CFLAGS) $(OBJ) $(PARSER_OBJ) $(LIBFT) -lreadline -o $(NAME)
 
-# Build main objs in srcs
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
+# Build main obj in src
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
 	cc $(CFLAGS) -c $< -o $@
 
-# Build parser objs 
-$(PARSER_OBJS_DIR)/%.o: $(PARSER_SRCS_DIR)/%.c $(PARSER_HEADERS)
+# Build parser obj 
+$(PARSER_OBJ_DIR)/%.o: $(PARSER_SRC_DIR)/%.c $(PARSER_HEADERS)
 	cc $(CFLAGS) -c $< -o $@
 
 # Trigger Libft compilation
@@ -73,8 +75,8 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 clean:
-	rm -f $(OBJS)
-	rm -rf $(OBJS_DIR)
+	rm -f $(OBJ)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean

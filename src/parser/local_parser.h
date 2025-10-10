@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/10 15:51:48 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/10 20:07:48 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ void	figure_type(t_token **current, char c);
 // fn_crawl.c
 int		crawl(char *buf, char *str, t_token **head);
 
-int		validate_syntax(t_token *tokens);
+int		validate_tokens(t_token *tokens);
 
 #endif
