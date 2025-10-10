@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/09 18:14:54 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/10 15:51:48 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,29 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "parser.h"
+
+typedef enum e_type
+{
+	UNSET = -1,
+	WORD,
+	PIPE,
+	INPUT,
+	OUTPUT,
+	RINPUT,
+	ROUTPUT,
+	S_QT,
+	D_QT
+}	t_token_type;
+
+typedef struct s_token
+{
+	char			*content;
+	struct s_token	*next;
+	t_token_type	type;
+}	t_token;
+
+// fn_tokenizer.c
+t_token	*tokenizer(char *str);
 
 // fn_tocken_lists.c
 int		tls_add_back(t_token **lst, t_token *new);
@@ -31,5 +54,7 @@ void	figure_type(t_token **current, char c);
 
 // fn_crawl.c
 int		crawl(char *buf, char *str, t_token **head);
+
+int		validate_syntax(t_token *tokens);
 
 #endif

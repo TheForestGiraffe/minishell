@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/10 15:31:31 by pecavalc         ###   ########.fr       */
+/*   Created: 2025/10/10 13:34:00 by pecavalc          #+#    #+#             */
+/*   Updated: 2025/10/10 17:50:29 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#include "local_parser.h"
 
-# include <stdbool.h>
+t_cmd	*parse(char *line)
+{
+	t_token	*token_lst;
+	t_cmd	*cmd_lst;
 
-typedef struct s_cmd {
-	char			**argv;
-	char			*infile;
-	char			*outfile;
-	bool			append;
-	struct s_cmd	*next;
-}					t_cmd;
+	token_lst = tokenize(line);
+	if (!token_lst)
+		return (NULL);
+	if (validate_syntax(token_lst) == -1)
+		return (NULL);
+	return (cmd_lst);
+}
 
-t_cmd	*parse(char *line);
-
-#endif
+// Create files within the parser (?)
