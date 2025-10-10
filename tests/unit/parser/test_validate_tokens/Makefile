@@ -6,32 +6,50 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/10 21:44:39 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/11 01:06:15 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/11 00:46:30 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = run_parser_unit_tests
+NAME		= test_validate_tokens
 
-all: test_validate_tokens \
-	 test_tokenizer
+ROOT_DIR 	= ../../../..
+INCLUDE_DIR = $(ROOT_DIR)/include
+PARSER_DIR 	= $(ROOT_DIR)/src/parser/
 
-test_validate_tokens:
-	@echo "\ntest_validate_tokens:\n"
-	@$(MAKE) -s -C test_validate_tokens run
+SRC			= test_validate_tokens.c \
+			  $(PARSER_DIR)/validate_tokens.c
+			  
+OBJ			= $(patsubst %.c, %.o, $(SRC))
 
-test_tokenizer:
-	@echo "\ntest_tokenizer:\n"
-	@$(MAKE) -s -C test_tokenizer run
-	@echo "\n"
+LIBFT_DIR 			= $(ROOT_DIR)/libs/Libft-2.1.1
+LIBFT_HEADER_DIR	= $(LIBFT_DIR)/include
+LIBFT 				= $(LIBFT_DIR)/libft.a
 
-.PHONY: all clean fclean test_validate_tokens test_tokenizer
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDE_DIR) -I$(PARSER_DIR) \
+							   -I$(LIBFT_HEADER_DIR) 
+
+all: $(NAME)
+
+run: $(NAME)
+	./$(NAME)
+
+$(NAME): $(OBJ) $(LIBFT)
+	cc $(CFLAGS) $^ -o $@
+
+%.o: %.c
+	cc $(CFLAGS) -c $< -o $@
+
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR)
+
+.PHONY: clean fclean re
 
 clean:
-	@$(MAKE) -s -C test_validate_tokens clean
-	@$(MAKE) -s -C test_tokenizer clean
+	rm -f $(OBJ)
+	$(MAKE) clean -C $(LIBFT_DIR)
 
-fclean:
-	@$(MAKE) -s -C test_validate_tokens fclean
-	@$(MAKE) -s -C test_tokenizer fclean
+fclean: clean 
+	rm -f $(NAME)
+	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
