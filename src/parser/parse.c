@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:34:00 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/12 17:37:03 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/12 18:54:33 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_cmd	*parse(char *line)
 	token_lst = tokenizer(line);
 	if (!token_lst)
 		return (NULL);
-	if (check_token_sequence(token_lst) == -1)
+	if ((check_token_sequence(token_lst) == 0)
+		|| check_token_sequence(token_lst) == -1)
 		return (NULL);
 	return (cmd_lst);
 }
