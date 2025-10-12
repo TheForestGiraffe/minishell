@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/10 15:31:31 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/12 23:43:33 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_cmd {
 	char			*outfile;
 	bool			append;
 	struct s_cmd	*next;
-}					t_cmd;
+}	t_cmd;
 
 t_cmd	*parse(char *line);
 
