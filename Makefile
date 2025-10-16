@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/16 16:08:21 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/16 16:12:16 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,7 +146,7 @@ $(TEST_3_NAME): $(OBJ_DIRS) $(OBJ) $(PARSER_OBJ) $(NAME) $(LIBFT) \
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
 	cc $(CFLAGS) -c $< -o $@
 
-test: 		$(TEST_1_NAME) $(TEST_2_NAME) test_norm
+test: 		test_norm $(TEST_1_NAME) $(TEST_2_NAME) $(TEST_3_NAME)
 test_1: 	$(TEST_1_NAME)
 test_2:		$(TEST_2_NAME)
 test_3:		$(TEST_3_NAME)
