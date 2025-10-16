@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/16 13:20:30 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:37:34 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,16 @@ t_cmd	*build_cmd_lst(t_token *token_lst)
 				return (NULL);
 			}
 		}
-		
+		else if (token_lst->type == PIPE)
+		{
+			cur_cmd = cmd_lst_create();
+			if (!cur_cmd || (cmd_lst_add_back(&cmd_lst, cur_cmd) == -1))
+			{
+				cmd_lst_delete_list(&cmd_lst);
+				return (NULL);
+			}
+		}
+
 		// To be continued here.
 
 		token_lst = token_lst->next;
