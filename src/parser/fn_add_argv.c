@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/16 15:52:59 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/16 16:04:46 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	add_argv(t_token *cur_token, t_cmd *cur_cmd)
 	new_argv_node->type = cur_token->type;
 	return (1);
 }
+
 static int	init_argv(t_cmd *cur_cmd, t_token *cur_token)
 {
 	if (!cur_cmd || !cur_token)
@@ -47,7 +48,7 @@ static int	init_argv(t_cmd *cur_cmd, t_token *cur_token)
 	if (!cur_token->content || (cur_token->content[0] == '\0'))
 	{
 		ft_putstr_fd("@init_argv: \"\" cmd not found\n", 2);
-		return (-1);	
+		return (-1);
 	}
 	cur_cmd->argv_lst = tls_create(cur_token->content);
 	if (!cur_cmd->argv_lst)
