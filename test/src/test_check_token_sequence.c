@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 21:18:49 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/13 00:17:45 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:19:02 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	main(void)
 	int	res;
 
 	res = 1;
+	test("Cmd commes eventually after Pipe", "cat | < infile >outfile cmd", 1, &res);
+	test("Cmd does not comme eventually after Pipe", "cat | < infile >outfile", 0, &res);
+	test("Cmd does not comme eventually after Pipe + |", "cat | < infile >outfile |", 0, &res);
 	test("Pipe followed by WORD, even if not cmd", "cat | a", 1, &res);
 	test("Pipe preceeded by S_QT", "cat 'hello world' | echo", 1, &res);
 	test("Pipe preceeded by D_QT", "cat \"hello world\" | echo", 1, &res);

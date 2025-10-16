@@ -1,62 +1,68 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_token_sequence.c                             :+:      :+:    :+:   */
+/*   fn_check_token_sequence.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:17:15 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/12 18:52:44 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/16 17:18:05 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "local_parser.h"
 
-static int	check_pipe(t_token *curr_token, t_token *token_lst);
+static int	check_pipe(t_token *cur_token, t_token *token_lst);
 static int	is_redirection(t_token_type type);
 static int	check_redirection(t_token *token);
+static int	can_next_cmd_exist(t_token *cur_token);
 
 int	check_token_sequence(t_token *token_lst)
 {
-	t_token	*curr_token;
+	t_token	*cur_token;
 
 	if (!token_lst)
 		return (-1);
-	curr_token = token_lst;
-	while (curr_token)
+	cur_token = token_lst;
+	while (cur_token)
 	{
-		if (curr_token->type == PIPE)
+		if (cur_token->type == PIPE)
 		{
-			if (check_pipe(curr_token, token_lst) == 0)
+			if (check_pipe(cur_token, token_lst) == 0)
 				return (0);
 		}
-		else if (is_redirection(curr_token->type))
+		else if (is_redirection(cur_token->type))
 		{
-			if (check_redirection(curr_token) == 0)
+			if (check_redirection(cur_token) == 0)
 				return (0);
 		}
-		curr_token = curr_token->next;
+		cur_token = cur_token->next;
 	}
 	return (1);
 }
 
-static int	check_pipe(t_token *curr_token, t_token *token_lst)
+static int	check_pipe(t_token *cur_token, t_token *token_lst)
 {
-	if ((curr_token == token_lst) && (curr_token->type == PIPE))
+	if ((cur_token == token_lst) && (cur_token->type == PIPE))
 	{
 		ft_putstr_fd("minishell: syntax error near token '|'\n", 2);
 		return (0);
 	}
-	if ((curr_token->type == PIPE) && (curr_token->next))
+	if ((cur_token->type == PIPE) && (cur_token->next))
 	{
-		if (curr_token->next->type == PIPE)
+		if (cur_token->next->type == PIPE)
 		{
 			ft_putstr_fd("minishel: syntax error near token '|'\n", 2);
 			return (0);
 		}
 	}
-	if ((curr_token->type == PIPE) && (!curr_token->next))
+	if ((cur_token->type == PIPE) && (!cur_token->next))
+	{
+		ft_putstr_fd("minishel: syntax error near token '|'\n", 2);
+		return (0);
+	}
+	if (can_next_cmd_exist(cur_token) == 0)
 	{
 		ft_putstr_fd("minishel: syntax error near token '|'\n", 2);
 		return (0);
@@ -86,5 +92,27 @@ static int	check_redirection(t_token *token)
 	ft_putstr_fd("minishel: syntax error near token '", 2);
 	ft_putstr_fd(token->content, 2);
 	ft_putstr_fd("\n", 2);
+	return (0);
+}
+static int	can_next_cmd_exist(t_token *cur_token)
+{
+	t_token *next;
+	
+	next = cur_token->next;
+	while (next)
+	{
+		if ((next->type == INPUT) || (next->type == OUTPUT) ||
+				(next->type == ROUTPUT) || (next->type == RINPUT))
+		{
+			if(!next->next) 
+				return (0);
+			next = next->next;
+		}
+		else if (next->type == WORD || next->type == S_QT || next->type == D_QT)
+			return (1);
+		else if (next->type == PIPE)
+			break;
+		next = next->next;
+	}
 	return (0);
 }
