@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/16 11:25:14 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/16 13:05:02 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int cmd_lst_add_back(t_cmd **head, t_cmd *new)
 
 int	cmd_lst_delete_list(t_cmd **head)
 {
-	int		i;
 	t_cmd	*cur;
 	t_cmd 	*next;
 

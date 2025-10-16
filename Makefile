@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/10/15 14:25:57 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/10/16 13:21:39 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ HEADER = $(HEADER_DIR)/minishell.h
 
 # Parser
 PARSER_SRC_DIR = src/parser
-PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_build_cmd_lst.c \
+PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_add_word.c \
+											 fn_build_cmd_lst.c \
 											 fn_check_token_sequence.c \
 											 fn_cmd_list.c \
 											 fn_crawl.c \
@@ -128,6 +129,19 @@ $(TEST_2_NAME): $(OBJ_DIRS) $(OBJ) $(PARSER_OBJ) $(NAME) $(LIBFT) \
 	   $(LDFLAGS) -o $(TEST_2_NAME)
 	./$(TEST_2_NAME)
 
+# 3: test_build_cmd_lst
+TEST_3_NAME = test_build_cmd_lst
+TEST_3_SRC = $(addprefix $(TEST_SRC_DIR)/, test_build_cmd_lst.c)
+TEST_3_OBJ = $(patsubst $(TEST_SRC_DIR)/%.c, $(TEST_OBJ_DIR)/%.o, \
+			 $(TEST_3_SRC))
+
+# Compile and run test 3
+$(TEST_3_NAME): $(OBJ_DIRS) $(OBJ) $(PARSER_OBJ) $(NAME) $(LIBFT) \
+				$(TEST_OBJ_DIR) $(TEST_3_OBJ)
+	@cc $(CFLAGS) $(LDFLAGS) $(OBJ) $(PARSER_OBJ) $(LIBFT) $(TEST_3_OBJ) \
+	   $(LDFLAGS) -o $(TEST_3_NAME)
+	./$(TEST_3_NAME)
+
 # Compile test objects
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
 	cc $(CFLAGS) -c $< -o $@
@@ -135,6 +149,7 @@ $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
 test: 		$(TEST_1_NAME) $(TEST_2_NAME) test_norm
 test_1: 	$(TEST_1_NAME)
 test_2:		$(TEST_2_NAME)
+test_3:		$(TEST_3_NAME)
 
 # --------------------------------------------------------------------------- #
 # 								CLEAN UP									  #
@@ -149,8 +164,9 @@ fclean: clean
 	rm -f $(NAME)
 	rm -f $(TEST_1_NAME)
 	rm -f $(TEST_2_NAME)
+	rm -f $(TEST_3_NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY: all test $(TEST_1_NAME) $(TEST_2_NAME) re clean fclean
+.PHONY: all test $(TEST_1_NAME) $(TEST_2_NAME) $(TEST_3_NAME) re clean fclean
