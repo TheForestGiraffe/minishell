@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/16 16:06:20 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/10/17 16:45:21 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	cmd_lst_delete_list(t_cmd **head)
 	while (cur)
 	{
 		next = cur->next;
-		tls_delete_list(&(*head)->argv_lst);
+		tls_delete_list(&cur->argv_lst);
 		free(cur->infile);
 		free(cur->outfile);
 		free(cur);
