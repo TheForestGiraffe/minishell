@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/03 10:57:16 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/03 12:13:45 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	handle_redirection(t_token *token, t_cmd *cmd)
 {
 	if (token->type == INPUT)
 	{
+		free(cmd->infile);
 		cmd->infile = ft_strdup(token->next->content);
 		if (!cmd->infile)
 			return (-1);
@@ -93,6 +94,7 @@ static int	handle_out_and_rout(t_token *token, t_cmd *cmd)
 {
 	int	fd;
 
+	free(cmd->outfile);
 	cmd->outfile = ft_strdup(token->next->content);
 	if (!cmd->outfile)
 		return (-1);
@@ -117,6 +119,7 @@ static int	handle_heredoc(t_token *token, t_cmd *cmd)
 	if (!token || !token->next || !token->next->content || !cmd)
 		return (-1);
 	cmd->is_infile_heredoc = true;
+	free(cmd->infile);
 	cmd->infile = ft_strdup(token->next->content);
 	if (!cmd->infile)
 		return (-1);
