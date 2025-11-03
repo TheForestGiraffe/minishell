@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/17 17:08:21 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/03 10:55:21 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <stdlib.h>
 # include "libft.h"
 # include "parser.h"
+# include <fcntl.h>
+# include <unistd.h>
 
 // fn_tokenizer.c
 t_token	*tokenizer(char *str);
