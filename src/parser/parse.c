@@ -6,13 +6,11 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:34:00 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/03 12:37:05 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:59:24 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "local_parser.h"
-
-//TODO: Remove after implementing build cmd_list
 
 t_cmd	*parse(char *line, char **envp)
 {
