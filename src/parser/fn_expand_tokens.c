@@ -53,7 +53,7 @@ static int	extract_var(char **str, char **envp, int var_len, int i)
 	return (ft_strlen (expanded_var));
 }
 
-static int process_str(char **str, char **envp)
+static int	process_str(char **str, char **envp)
 {
 	int		i;
 	int		var_len;
@@ -85,7 +85,7 @@ int	expand_vars(char **str, char **envp)
 
 	if (!str || !envp)
 	{
-		ft_putstr_fd ("@expanded_vars: empty input", 2);
+		ft_putstr_fd ("@expanded_vars: empty input\n", 2);
 		return (-1);
 	}
 	if (!(*str))
@@ -94,15 +94,21 @@ int	expand_vars(char **str, char **envp)
 	return (return_value);
 }
 
-int expand_tokens(t_token *token_lst)
+int	expand_tokens(t_token *token_lst, char **envp)
 {
-	t_token *cur;
+	t_token	*token;
 
 	if (!token_lst || !token_lst->content)
 		return (-1);
-	cur = token_lst;
-	while (cur)
+	token = token_lst;
+	while (token)
 	{
-		if (cur->type == WORD || ) // TODO
+		if (token->type == RINPUT && token->next)
+			token = token->next;
+		else if (token->type == WORD || token->type == D_QT)
+			if (expand_vars(&token->content, envp) == -1)
+				return (-1);
+		token = token->next;
 	}
+	return (1);
 }
