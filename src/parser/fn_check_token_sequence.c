@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:17:15 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/10/16 17:18:05 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/03 09:14:38 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,24 +94,25 @@ static int	check_redirection(t_token *token)
 	ft_putstr_fd("\n", 2);
 	return (0);
 }
+
 static int	can_next_cmd_exist(t_token *cur_token)
 {
-	t_token *next;
-	
+	t_token	*next;
+
 	next = cur_token->next;
 	while (next)
 	{
-		if ((next->type == INPUT) || (next->type == OUTPUT) ||
-				(next->type == ROUTPUT) || (next->type == RINPUT))
+		if ((next->type == INPUT) || (next->type == OUTPUT)
+			|| (next->type == ROUTPUT) || (next->type == RINPUT))
 		{
-			if(!next->next) 
+			if (!next->next)
 				return (0);
 			next = next->next;
 		}
 		else if (next->type == WORD || next->type == S_QT || next->type == D_QT)
 			return (1);
 		else if (next->type == PIPE)
-			break;
+			break ;
 		next = next->next;
 	}
 	return (0);
