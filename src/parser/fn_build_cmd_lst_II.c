@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/04 21:41:48 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/06 13:48:43 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 static int	execute_heredoc(char *filename, t_token *delim_token, char **envp);
 static int	check_and_expand_line(char **line, t_token_type type, char **envp);
 static int	read_and_write_line(t_token *tok, int fd, char **envp);
+static char	*get_heredoc_filename(void);
 
 int	handle_heredoc(t_token *token, t_cmd *cmd, char **envp)
 {
@@ -23,7 +24,7 @@ int	handle_heredoc(t_token *token, t_cmd *cmd, char **envp)
 		return (-1);
 	cmd->is_infile_heredoc = true;
 	free(cmd->infile);
-	cmd->infile = ft_strdup(".heredoc_tmp");
+	cmd->infile = get_heredoc_filename();
 	if (!cmd->infile)
 		return (-1);
 	if (execute_heredoc(cmd->infile, token->next, envp) == -1)
@@ -90,4 +91,26 @@ static int	check_and_expand_line(char **line, t_token_type type, char **envp)
 			return (-1);
 	}
 	return (1);
+}
+
+static char	*get_heredoc_filename(void)
+{
+	char				*filename;
+	static unsigned int	i = 0;
+
+	while (1)
+	{
+		filename = ft_strjoin(".heredoc_tmp_", ft_itoa(i));
+		if (!filename)
+			return (NULL);
+		if (access(filename, F_OK) != 0)
+			break ;
+		else
+		{
+			free(filename);
+			i++;
+		}
+	}
+	i++;
+	return (filename);
 }
