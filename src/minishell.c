@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/07 10:57:38 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:30:01 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "signals.h"
 #include "parser.h"
 #include "execute.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>

@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   fn_signals.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 13:30:56 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/07 10:29:35 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/08 11:30:52 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
 #include <signal.h>
 #include <unistd.h>
+#include <stdio.h>
 #include <readline/readline.h>
 
 int	g_signal = 0;
