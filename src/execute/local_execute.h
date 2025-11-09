@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:54:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/09 18:08:06 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:31:03 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ char	*get_full_path(t_cmd *cmd_lst, char **envp);
 
 // fn_create_process_id_arr.c
 void	clear_fd_array(int **fd_array, int pos);
-int		*create_process_id_arr (int ***fd_array, int count);
+int		*create_process_id_arr(int ***fd_array, int count);
 
 // fn_loop_pids.c
-int		loop_pids(int *process_id_arr,int **fd_array, int count, t_exec_context *exec_context);
+int		loop_pids(int *process_id_arr, int **fd_array,
+			int count, t_exec_context *exec_context);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/09 16:30:45 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:39:32 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,30 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-static int	read_parse_and_execute(char **envp)
+static t_exec_context	*create_exec_context(char **envp)
 {
-	char			*line;
 	t_exec_context	*exec_context;
 
 	exec_context = malloc (sizeof (t_exec_context));
 	if (!exec_context)
 	{
 		perror ("@read_parse_and_execute.malloc: ");
-		return (-1);
+		return (NULL);
 	}
 	exec_context->envp = envp;
 	exec_context->exit_state = NULL;
 	exec_context->cmd_lst = NULL;
+	return (exec_context);
+}
+
+static int	read_parse_and_execute(char **envp)
+{
+	char			*line;
+	t_exec_context	*exec_context;
+
+	exec_context = create_exec_context (envp);
+	if (!exec_context)
+		return (-1);
 	line = readline("minishell$ ");
 	if (!line)
 	{
@@ -65,4 +75,3 @@ static int	read_parse_and_execute(char **envp)
 	free(line);
 	return (0);
 }
-// make types .h file

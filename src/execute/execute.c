@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/09 17:56:44 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:27:21 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	cmd_lst_count(t_cmd *cmd_lst)
 	return (len);
 }
 
-static void	close_all_fds(int	**fd_array, int	count)
+static void	close_all_fds(int **fd_array, int count)
 {
 	int	i;
 
@@ -56,7 +56,8 @@ static void	wait_all_pids(int *process_id_arr, int count, int *exit_state)
 	}
 }
 
-static void	cleanup_exec(int **fd_array, int **process_id_arr, t_exec_context *exec_context, int count)
+static void	cleanup_exec(int **fd_array, int **process_id_arr,
+						t_exec_context *exec_context, int count)
 {
 	clear_fd_array (fd_array, count - 1);
 	free (*process_id_arr);
@@ -84,5 +85,5 @@ int	execute(t_exec_context *exec_context)
 	close_all_fds (fd_array, count - 1);
 	wait_all_pids (process_id_arr, count, exec_context->exit_state);
 	cleanup_exec (fd_array, &process_id_arr, exec_context, count);
-	return(1);
+	return (1);
 }

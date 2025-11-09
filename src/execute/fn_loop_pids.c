@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/09 18:13:01 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/09 18:29:35 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,22 @@ static int	connect_pipes(int **fd_array, int pos, int count)
 	return (1);
 }
 
-int	loop_pids(int *process_id_arr,int **fd_array, int count, t_exec_context *exec_context)
+static int	run_on_child(int **fd_array, t_exec_context *exec_context,
+						int i, int count)
+{
+	if (connect_pipes (fd_array, i, count - 1) == -1)
+		return (-1);
+	if (assign_input_output (exec_context->cmd_lst) == -1
+		|| run_cmd (exec_context->cmd_lst, exec_context->envp) == -1)
+		return (-1);
+	exit (1);
+}
+
+int	loop_pids(int *process_id_arr, int **fd_array,
+			int count, t_exec_context *exec_context)
 {
 	int	i;
-	
+
 	i = 0;
 	while (i < count)
 	{
@@ -53,13 +65,7 @@ int	loop_pids(int *process_id_arr,int **fd_array, int count, t_exec_context *exe
 			return (-1);
 		}
 		if (process_id_arr[i] == 0)
-		{
-			connect_pipes (fd_array, i, count - 1);
-			if (assign_input_output (exec_context->cmd_lst) == -1
-				|| run_cmd (exec_context->cmd_lst, exec_context->envp) == -1)
-				return (-1);
-			exit (1);
-		}
+			return (run_on_child (fd_array, exec_context, i, count));
 		else
 		{
 			if (exec_context->cmd_lst->next)
