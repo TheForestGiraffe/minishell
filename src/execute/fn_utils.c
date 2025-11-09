@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fn_utils.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/07 09:52:52 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:47:17 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
+#include <stdio.h>
 
 void	*free_str_array(char **arr)
 {
@@ -24,4 +25,10 @@ void	*free_str_array(char **arr)
 	}
 	free (arr);
 	return (NULL);
+}
+
+int	perror_int(char *str, int val)
+{
+	perror (str);
+	return (val);
 }

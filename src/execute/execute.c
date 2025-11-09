@@ -3,38 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/07 11:02:25 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:56:44 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "parser.h"
 #include "local_execute.h"
+#include "parser.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
 
-static int	cmd_lst_count(t_cmd *cmd_lst);
-
-int	execute(t_cmd *cmd_lst, char **envp)
-{
-	int	pipe_count;
-
-	pipe_count = cmd_lst_count (cmd_lst) - 1;
-	if (pipe_count == 0) 
-	{
-		if (assign_input_output (cmd_lst) == -1
-			|| run_cmd (cmd_lst, envp) == -1)
-			return (-1);
-		return (1);
-	}
-	return (0);
-}
-
-int	cmd_lst_count(t_cmd *cmd_lst)
+static int	cmd_lst_count(t_cmd *cmd_lst)
 {
 	int	len;
 
@@ -48,40 +30,59 @@ int	cmd_lst_count(t_cmd *cmd_lst)
 	}
 	return (len);
 }
-/*
 
-TODO:
+static void	close_all_fds(int	**fd_array, int	count)
+{
+	int	i;
 
-	int	pipe_count;
-	// int	**pid_arr;
-
-	pipe_count = cmd_lst_count (cmd_lst) - 1;
-	if (pipe_count == 0) 
+	i = 0;
+	while (i < count)
 	{
-		if (assign_input_output (cmd_lst) == -1
-		|| run_cmd (cmd_lst, envp) == -1)
-		{
-			// cmd_lst_clear (cmd_lst); FROM PEDRO
-			return (-1);
-		}
-		// cmd_lst_clear (cmd_lst); FROM PEDRO
-		return (1);
+		close (fd_array[i][0]);
+		close (fd_array[i][1]);
+		i++;
 	}
+}
 
-	// create pipes array
-	// pid_arr = malloc (sizeof (int *) * count);
+static void	wait_all_pids(int *process_id_arr, int count, int *exit_state)
+{
+	int	i;
 
-	// fork ();
-	// while loop
-		// if on child fork
-		// assign pid[i] to function
-		// assign_input_output (cmd_lst) **overrides pipes**
-		// run_cmd (cmd_lst)
-		// on parent close pids
-		// clean up
-		// cmd_lst = cmd_lst.next;
+	i = 0;
+	while (i < count)
+	{
+		waitpid (process_id_arr[i], exit_state, WUNTRACED);
+		i ++;
+	}
+}
 
-	// wait for all functions
-	// change exit_status 
-	// clean up
-*/
+static void	cleanup_exec(int **fd_array, int **process_id_arr, t_exec_context *exec_context, int count)
+{
+	clear_fd_array (fd_array, count - 1);
+	free (*process_id_arr);
+	cmd_lst_delete_list (&exec_context->cmd_lst);
+}
+
+int	execute(t_exec_context *exec_context)
+{
+	int	*process_id_arr;
+	int	**fd_array;
+	int	count;
+
+	count = cmd_lst_count (exec_context->cmd_lst);
+	if (count == 0)
+		return (1);
+	process_id_arr = create_process_id_arr (&fd_array, count);
+	if (!process_id_arr)
+		return (-1);
+	if (loop_pids (process_id_arr, fd_array, count, exec_context) == -1)
+	{
+		close_all_fds (fd_array, count - 1);
+		cleanup_exec (fd_array, &process_id_arr, exec_context, count);
+		return (-1);
+	}
+	close_all_fds (fd_array, count - 1);
+	wait_all_pids (process_id_arr, count, exec_context->exit_state);
+	cleanup_exec (fd_array, &process_id_arr, exec_context, count);
+	return(1);
+}

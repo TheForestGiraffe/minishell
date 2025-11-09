@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   local_parser.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/07 11:20:01 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/09 17:37:50 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LOCAL_PARSER_H
 # define LOCAL_PARSER_H
 
-# include "parser.h"
+# include "types.h"
 
 // fn_tokenizer.c
 t_token	*tokenizer(char *str);
