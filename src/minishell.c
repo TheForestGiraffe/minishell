@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/10 18:39:29 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:59:35 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,23 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	return (0);
+}
+
+
+#define malloc xmalloc
+
+
+void *xmalloc(size_t size)
+{
+    static int count = 0;
+    count++;
+
+    // Fail every Nth allocation
+    if (count == 5)
+    {
+        fprintf(stderr, "[xmalloc] Simulating malloc failure at #%d\n", count);
+        return NULL;
+    }
+
+    return malloc(size);
 }
