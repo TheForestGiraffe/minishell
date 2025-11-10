@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_builtin_functions.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/06 14:13:28 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/10 11:51:20 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

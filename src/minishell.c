@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/09 18:39:32 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:39:29 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,7 @@
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-
-static int	read_parse_and_execute(char **envp);
-
-int	main(int argc, char **argv, char **envp)
-{
-	(void)argc;
-	(void)argv;
-	register_signals();
-	while (1)
-	{
-		if (read_parse_and_execute(envp))
-			break ;
-	}
-	rl_clear_history();
-	return (0);
-}
+#include <unistd.h>
 
 static t_exec_context	*create_exec_context(char **envp)
 {
@@ -51,6 +36,14 @@ static t_exec_context	*create_exec_context(char **envp)
 	return (exec_context);
 }
 
+static int	handle_eof(t_exec_context	**exec_context)
+{
+	ft_putstr_fd("exit\n", 1);
+	rl_clear_history();
+	free(*exec_context);
+	return (1);
+}
+
 static int	read_parse_and_execute(char **envp)
 {
 	char			*line;
@@ -61,10 +54,7 @@ static int	read_parse_and_execute(char **envp)
 		return (-1);
 	line = readline("minishell$ ");
 	if (!line)
-	{
-		ft_putstr_fd("exit\n", 1);
-		return (1);
-	}
+		return (handle_eof(&exec_context));
 	if (*line)
 	{
 		add_history(line);
@@ -73,5 +63,20 @@ static int	read_parse_and_execute(char **envp)
 			execute(exec_context);
 	}
 	free(line);
+	free(exec_context);
+	return (0);
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	(void)argc;
+	(void)argv;
+	register_signals();
+	while (1)
+	{
+		if (read_parse_and_execute(envp))
+			break ;
+	}
+	rl_clear_history();
 	return (0);
 }

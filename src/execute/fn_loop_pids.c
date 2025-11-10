@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/09 18:29:35 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:31:38 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	run_on_child(int **fd_array, t_exec_context *exec_context,
 		return (-1);
 	if (assign_input_output (exec_context->cmd_lst) == -1
 		|| run_cmd (exec_context->cmd_lst, exec_context->envp) == -1)
-		return (-1);
+		exit (-1);
 	exit (1);
 }
 
