@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/11 19:01:03 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/11 22:02:10 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	handle_out_and_rout(t_token *token, t_cmd *cmd)
 	}
 	if (fd == -1)
 	{
-		ft_putstr_fd("@handle_redirection: could not create file", 2);
+		ft_putstr_fd("@handle_redirection: could not create file\n", 2);
 		return (-1);
 	}
 	close(fd);
