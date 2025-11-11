@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_expand_tokens.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:58:40 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/11 16:04:10 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:17:09 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int	expand_this_var(char *var, t_exec_context *exec_context, char **expanded_var)
+static int	expand_this_var(char *var, t_exec_context *exec_context,
+		char **expanded_var)
 {
 	if (var[0] == '$' && var[1] == '?')
 	{
@@ -35,7 +36,8 @@ static int	expand_this_var(char *var, t_exec_context *exec_context, char **expan
 	return (1);
 }
 
-static int	extract_var(char **str, t_exec_context *exec_context, int var_len, int i)
+static int	extract_var(char **str, t_exec_context *exec_context,
+		int var_len, int i)
 {
 	char	*var;
 	char	*expanded_var;
