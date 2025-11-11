@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/11 16:13:25 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/11 16:56:13 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,16 @@ int	execute(t_exec_context *exec_context)
 
 	count = cmd_lst_count (exec_context->cmd_lst);
 	if (count == 0)
+	{
+		cmd_lst_delete_list (&exec_context->cmd_lst);
 		return (1);
+	}
 	process_id_arr = create_process_id_arr (&fd_array, count);
 	if (!process_id_arr)
+	{
+		cmd_lst_delete_list (&exec_context->cmd_lst);
 		return (-1);
+	}
 	if (loop_pids (process_id_arr, fd_array, count, exec_context) == -1)
 	{
 		close_all_fds (fd_array, count - 1);
