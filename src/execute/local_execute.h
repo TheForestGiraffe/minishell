@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   local_execute.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:54:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/12 12:11:41 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:32:29 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 
 // fn_assign_input_output.c
 int		assign_input_output(t_cmd *cmd_lst);
-
-// fn_assign_input_output_utils.c
-int		check_heredoc_onreturn(t_cmd *cmd_lst, int val);
 
 // fn_run_cmd.c
 int		run_cmd(t_exec_context *exec_context);

@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_assign_input_output_utils.c                     :+:      :+:    :+:   */
+/*   fn_echoctl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/07 10:30:51 by pecavalc         ###   ########.fr       */
+/*   Created: 2025/10/06 13:30:56 by pecavalc          #+#    #+#             */
+/*   Updated: 2025/11/13 16:19:54 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <fcntl.h>
+#include <termios.h>
 #include <unistd.h>
-#include <stdio.h>
 
-int	check_heredoc_onreturn(t_cmd *cmd_lst, int val)
+void	disable_ctrl_chars_printing(void)
 {
-	if (cmd_lst->is_infile_heredoc)
-	{
-		if (unlink (cmd_lst->infile) != 0)
-		{
-			perror ("@heredoc_checker.unlink:");
-			return (-1);
-		}
-		else
-			return (val);
-	}
-	return (val);
+	struct termios	termios;
+
+	if (tcgetattr(STDIN_FILENO, &termios) == -1)
+		return ;
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
+}
+
+void	enable_ctrl_chars_printing(void)
+{
+	struct termios	termios;
+
+	if (tcgetattr(STDIN_FILENO, &termios) == -1)
+		return ;
+	termios.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 }

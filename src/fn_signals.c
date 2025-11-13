@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 13:30:56 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/13 12:42:07 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:14:51 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <libft.h>
 #include <readline/readline.h>
 
 int	g_signal = 0;
@@ -36,5 +37,8 @@ void	handle_sigint(int sig)
 void	heredoc_handle_sigint(int sig)
 {
 	(void)sig;
-	_exit(0);
+	rl_on_new_line();
+	rl_redisplay();
+	write(1, "\n", 2);
+	_exit(130);
 }

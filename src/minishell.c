@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/13 13:49:21 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:20:38 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "signals.h"
 #include "parser.h"
 #include "execute.h"
+#include "echoctl.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <readline/readline.h>
@@ -33,10 +34,10 @@ static int	read_parse_and_execute(t_exec_context *exec_context)
 	if (*line)
 	{
 		add_history(line);
-		parse(line, exec_context);
-		if (exec_context->cmd_lst)
+		if (parse(line, exec_context) == 1)
 		{
-			execute(exec_context);
+			if (exec_context->cmd_lst)
+				execute(exec_context);
 		}
 	}
 	free(line);
@@ -47,14 +48,16 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_exec_context	exec_context;
 
+	register_signals();
+	atexit(enable_ctrl_chars_printing);
 	(void)argc;
 	(void)argv;
 	exec_context.envp = envp;
 	exec_context.exit_state = 0;
 	exec_context.cmd_lst = NULL;
-	register_signals();
 	while (1)
 	{
+		disable_ctrl_chars_printing();
 		if (read_parse_and_execute(&exec_context))
 			break ;
 	}

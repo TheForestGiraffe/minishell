@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/13 14:03:54 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:36:23 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	handle_out_and_rout(t_token *token, t_cmd *cmd)
 	return (1);
 }
 
-int	handle_redirection(t_token *token, t_cmd *cmd,
+static int	handle_redirection(t_token *token, t_cmd *cmd,
 		t_exec_context *exec_context)
 {
 	if (token->type == INPUT)
@@ -89,29 +89,30 @@ static int	convert_token(t_token **token, t_cmd **cmd,
 	return (1);
 }
 
-void	build_cmd_lst(t_token *token_lst, t_exec_context *exec_context)
+int	build_cmd_lst(t_token *token_lst, t_exec_context *exec_context)
 {
 	t_cmd	*cmd;
 	t_token	*token;
 
 	if (!token_lst)
-		return ;
+		return (-1);
 	token = token_lst;
 	cmd = cmd_lst_create();
 	if (!cmd)
-		return ;
+		return (-1);
 	if (cmd_lst_add_back(&(exec_context->cmd_lst), cmd) == -1)
 	{
 		free(cmd);
-		return ;
+		return (-1);
 	}
 	while (token)
 	{
 		if (convert_token(&token, &cmd, exec_context) == -1)
 		{
 			cmd_lst_delete_list(&(exec_context->cmd_lst));
-			return ;
+			return (-1);
 		}
 		token = token->next;
 	}
+	return (1);
 }

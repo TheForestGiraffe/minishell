@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/11/13 12:21:00 by pecavalc         ###   ########.fr        #
+#    Updated: 2025/11/13 17:36:35 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,13 @@ NAME = minishell
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR)/, fn_signals.c)
+SRC = $(addprefix $(SRC_DIR)/, fn_signals.c fn_echoctl.c)
 SRC_MAIN = $(addprefix $(SRC_DIR)/,minishell.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 OBJ_MAIN = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_MAIN))
 
 HEADER_DIR = include
-HEADER = $(HEADER_DIR)/signals.h
+HEADER = $(HEADER_DIR)/signals.h $(HEADER_DIR)/echoctl.h
 
 # Parser
 PARSER_SRC_DIR = src/parser
@@ -52,7 +52,6 @@ PARSER_HEADERS = $(PUB_PARSER_HEADER_DIR)/parser.h \
 # Execute
 EXECUTE_SRC_DIR = src/execute
 EXECUTE_SRC = $(addprefix $(EXECUTE_SRC_DIR)/,execute.c \
-												fn_assign_input_output_utils.c \
 												fn_assign_input_output.c \
 												fn_get_full_path.c \
 												fn_run_cmd.c \

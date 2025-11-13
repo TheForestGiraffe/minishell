@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_assign_input_output.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/09 11:46:37 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:32:22 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ static int	create_in(t_cmd *cmd_lst)
 	if (fd == -1)
 	{
 		perror ("@create_in.open:");
-		return (check_heredoc_onreturn (cmd_lst, -1));
+		return (-1);
 	}
 	if (dup2 (fd, STDIN_FILENO) == -1)
 	{
 		perror ("@create_in.dup2:");
 		close (fd);
-		return (check_heredoc_onreturn (cmd_lst, -1));
+		return (-1);
 	}
 	close (fd);
-	return (check_heredoc_onreturn (cmd_lst, 1));
+	return (1);
 }
 
 static int	open_append(t_cmd *cmd_lst, int *fd)

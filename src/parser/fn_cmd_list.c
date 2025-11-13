@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/07 10:09:35 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:34:10 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	cmd_lst_delete_list(t_cmd **head)
 	{
 		next = cur->next;
 		tls_delete_list(&cur->argv);
+		if (cur->is_infile_heredoc)
+		{
+			if (unlink(cur->infile) != 0)
+				perror ("@cmd_lst_delete_list.unlink:");
+		}
 		free(cur->infile);
 		free(cur->outfile);
 		free(cur);

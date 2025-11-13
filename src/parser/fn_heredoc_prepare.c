@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/13 12:27:02 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:05:04 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,19 @@
 #include <signal.h>
 #include "signals.h"
 
+static int	get_exit_code(t_exec_context *exec_context, int status)
+{
+	if (WIFEXITED(status))
+		exec_context->exit_state = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		exec_context->exit_state = 128 + WTERMSIG(status);
+	if (exec_context->exit_state == 130)
+		return (-1);
+	return (1);
+}
+
 static int	fork_for_heredoc(char *filename, t_token *tok,
-		t_exec_context *exec_context)
+			t_exec_context *exec_context)
 {
 	pid_t	pid;
 	int		status;
@@ -36,11 +47,11 @@ static int	fork_for_heredoc(char *filename, t_token *tok,
 		execute_heredoc(filename, tok, exec_context);
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		waitpid(pid, &status, WUNTRACED);
-		if (WIFEXITED(status))
-			exec_context->exit_state = WEXITSTATUS(status);
-		else if (WIFSIGNALED(status))
-			exec_context->exit_state = 128 + WTERMSIG(status);
+		signal(SIGINT, handle_sigint);
+		if (get_exit_code(exec_context, status) == -1)
+			return (-1);
 	}
 	return (1);
 }
