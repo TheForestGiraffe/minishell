@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/12 12:37:58 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:06:45 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	close_all_fds(int **fd_array, int count)
 static void	wait_all_pids(int *process_id_arr, int count, int *exit_state)
 {
 	int	i;
-	int status;
+	int	status;
 
 	i = 0;
 	while (i < count)
