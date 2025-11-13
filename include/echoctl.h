@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   echoctl.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/13 14:34:49 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:20:18 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef ECHOCTL_H
+# define ECHOCTL_H
 
-# include "types.h"
-
-int		parse(char *line, t_exec_context *exec_context);
-char	*search_env(char *str, char **envp);
-void	*perror_null(char *str);
-int		cmd_lst_delete_list(t_cmd **head);
+void	disable_ctrl_chars_printing(void);
+void	enable_ctrl_chars_printing(void);
 
 #endif

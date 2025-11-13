@@ -1,44 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_signals.c                                       :+:      :+:    :+:   */
+/*   fn_echoctl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 13:30:56 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/13 17:14:51 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 16:19:54 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "signals.h"
-#include <signal.h>
+#include <termios.h>
 #include <unistd.h>
-#include <stdio.h>
-#include <libft.h>
-#include <readline/readline.h>
 
-int	g_signal = 0;
-
-void	register_signals(void)
+void	disable_ctrl_chars_printing(void)
 {
-	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+	struct termios	termios;
+
+	if (tcgetattr(STDIN_FILENO, &termios) == -1)
+		return ;
+	termios.c_lflag &= ~ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 }
 
-void	handle_sigint(int sig)
+void	enable_ctrl_chars_printing(void)
 {
-	(void)sig;
-	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	struct termios	termios;
 
-void	heredoc_handle_sigint(int sig)
-{
-	(void)sig;
-	rl_on_new_line();
-	rl_redisplay();
-	write(1, "\n", 2);
-	_exit(130);
+	if (tcgetattr(STDIN_FILENO, &termios) == -1)
+		return ;
+	termios.c_lflag |= ECHOCTL;
+	tcsetattr(STDIN_FILENO, TCSANOW, &termios);
 }

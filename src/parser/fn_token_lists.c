@@ -3,13 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fn_token_lists.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:37:21 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/16 15:50:59 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/10 18:19:20 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include "libft.h"
 #include "local_parser.h"
 
 int	tls_add_back(t_token **lst, t_token *new)
@@ -66,7 +69,15 @@ t_token	*tls_create(char *str)
 		return (NULL);
 	}
 	if (str)
-		new->content = str;
+	{
+		new->content = ft_strdup (str);
+		if (!new->content)
+		{
+			free (new);
+			perror ("@tls_create.ft_strdup:");
+			return (NULL);
+		}
+	}
 	else
 		new->content = NULL;
 	new->next = NULL;
@@ -78,7 +89,7 @@ int	add_buf_to_list(char *buf, t_token **head, t_token_type type)
 {
 	t_token	*current;
 
-	current = tls_create (ft_strdup (buf));
+	current = tls_create (buf);
 	if (!current)
 	{
 		perror ("@add_buf_to_list:");
@@ -86,6 +97,10 @@ int	add_buf_to_list(char *buf, t_token **head, t_token_type type)
 	}
 	current->type = type;
 	if (tls_add_back (head, current) == -1)
+	{
+		free (current->content);
+		free (current);
 		return (-1);
+	}
 	return (1);
 }

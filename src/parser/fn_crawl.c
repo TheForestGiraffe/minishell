@@ -6,11 +6,14 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:36:45 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/10/09 17:18:17 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/07 10:11:33 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "local_parser.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <libft.h>
 
 static int	handle_quotes(char **buf, char **p, int pos, t_token_type *type)
 {
@@ -44,7 +47,7 @@ static int	handle_redirects(char *buf, char **p, t_token **head)
 	buf[1] = str[1];
 	buf[2] = '\0';
 	(*p) += 2;
-	current = tls_create (ft_strdup (buf));
+	current = tls_create (buf);
 	if (!current)
 		return (-1);
 	if (buf[0] == '>')
@@ -68,7 +71,7 @@ static int	handle_special(char *buf, char **p, t_token **head)
 		buf[0] = *str;
 		buf[1] = '\0';
 		(*p)++;
-		current = tls_create (ft_strdup (buf));
+		current = tls_create (buf);
 		if (!current)
 			return (-1);
 		figure_type (&current, buf[0]);
