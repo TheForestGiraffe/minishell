@@ -1,38 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_exit.c                                     :+:      :+:    :+:   */
+/*   fn_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 14:13:04 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/03 16:14:18 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 20:04:19 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "local_builtin.h"
+#include "types.h"
+#include <stdlib.h>
 
-int	builtin_exit(int argc, char **argv, int last_status)
+int	builtin_exit(t_exec_context *ctxt)
 {
-	long	user_exit_code;
 	int		ret;
+	int		nr_args;
+	t_cmd	*cur_arg;
 
-	if (argc == 1)
-		exit(last_status);
-	if (argc == 2)
+	if (!ctxt || !ctxt->cmd_lst)
+		exit(EXIT_FAILURE);
+	nr_args = 0;
+	while (ctxt->cmd_lst->argv->next)
 	{
-		ret = ft_strtol(argv[1], &user_exit_code);
+		cur_arg = ctxt->cmd_lst->argv->next;
+		nr_args++;
+	}
+	if (ctxt->there_is_one_cmd_and_is_builtin_exit)
+		ft_printf("exit\n");
+	if (nr_args == 0)
+		exit(ctxt->exit_state);
+	else if (nr_args == 1)
+	{
+		ret = ft_strtol(ctxt->cmd_lst->argv->next, ctxt->exit_state);
 		if (ret == -1)
 		{
-			ft_printf("exit: %s: numeric argument required\n", argv[1]);
+			ft_printf("exit: %s: numeric argument required\n",
+				ctxt->cmd_lst->argv->next);
 			exit(2);
 		}
-		exit((unsigned char)user_exit_code);
+		exit(ctxt->exit_state);
 	}
-	if (argc > 2)
+	else
 	{
 		ft_printf("exit: too many arguments\n");
-		return (1);
+		exit(1);
 	}
 	return (1);
 }
