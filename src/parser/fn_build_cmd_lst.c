@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/13 13:58:28 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 14:03:54 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	build_cmd_lst(t_token *token_lst, t_exec_context *exec_context)
 	if (!cmd)
 		return ;
 	if (cmd_lst_add_back(&(exec_context->cmd_lst), cmd) == -1)
+	{
+		free(cmd);
 		return ;
+	}
 	while (token)
 	{
 		if (convert_token(&token, &cmd, exec_context) == -1)
