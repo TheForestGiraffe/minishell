@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:58:40 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/11 19:17:09 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:52:54 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@
 static int	expand_this_var(char *var, t_exec_context *exec_context,
 		char **expanded_var)
 {
+	char	*temp;
+
 	if (var[0] == '$' && var[1] == '?')
 	{
-		*expanded_var = ft_strdup (ft_itoa (exec_context->exit_state));
-		if (!*expanded_var)
+		temp = ft_itoa (exec_context->exit_state);
+		if (!temp)
 		{
 			perror ("@expand_this_var.ft_itoa:");
 			return (-1);
 		}
+		*expanded_var = temp;
 	}
 	else
 	{

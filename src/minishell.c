@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/11 18:19:45 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:49:21 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,24 @@
 #include <readline/history.h>
 #include <unistd.h>
 
-static int	handle_eof(void)
-{
-	ft_putstr_fd("exit\n", 1);
-	rl_clear_history();
-	return (1);
-}
-
 static int	read_parse_and_execute(t_exec_context *exec_context)
 {
-	char			*line;
+	char	*line;
 
 	line = readline("minishell$ ");
 	if (!line)
-		return (handle_eof());
+	{
+		ft_putstr_fd("exit\n", 1);
+		return (1);
+	}
 	if (*line)
 	{
 		add_history(line);
 		parse(line, exec_context);
 		if (exec_context->cmd_lst)
+		{
 			execute(exec_context);
+		}
 	}
 	free(line);
 	return (0);

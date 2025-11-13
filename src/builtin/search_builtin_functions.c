@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/10 11:51:20 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/12 11:59:42 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	search_builtin_functions(t_cmd *cmd_lst, char **envp)
 
 	return_val = 0;
 	name = cmd_lst->argv[0].content;
-	len = ft_strlen (name);
+	len = 1024;
 	if (ft_strncmp (name, "echo", len) == 0)
 		return_val = builtin_echo (cmd_lst, envp);
 	else if (ft_strncmp (name, "cd", len) == 0)
