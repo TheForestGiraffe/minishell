@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_loop_pids.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/11 22:48:34 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/10 15:31:38 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static int	run_on_child(int **fd_array, t_exec_context *exec_context,
 int	loop_pids(int *process_id_arr, int **fd_array,
 			int count, t_exec_context *exec_context)
 {
-	int		i;
-	t_cmd	*cmd;
+	int	i;
 
-	cmd = exec_context->cmd_lst;
 	i = 0;
 	while (i < count)
 	{
@@ -70,8 +68,8 @@ int	loop_pids(int *process_id_arr, int **fd_array,
 			return (run_on_child (fd_array, exec_context, i, count));
 		else
 		{
-			if (cmd->next)
-				cmd = cmd->next;
+			if (exec_context->cmd_lst->next)
+				exec_context->cmd_lst = exec_context->cmd_lst->next;
 			i++;
 		}
 	}
