@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_build_cmd_lst_II.c                              :+:      :+:    :+:   */
+/*   fn_heredoc_execute.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/11 23:02:21 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/13 12:26:02 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
-static char	*get_heredoc_filename(void)
-{
-	char				*filename;
-	char				*tmp;
-	static unsigned int	i = 1;
-
-	while (1)
-	{
-		tmp = ft_itoa(i);
-		if (!tmp)
-			return (NULL);
-		filename = ft_strjoin(".heredoc_tmp_", tmp);
-		free(tmp);
-		if (!filename)
-			return (NULL);
-		if (access(filename, F_OK) != 0)
-			break ;
-		else
-		{
-			free(filename);
-			i++;
-		}
-	}
-	i++;
-	return (filename);
-}
+#include <signal.h>
+#include "signals.h"
 
 static int	check_and_expand_line(char **line, t_token_type type,
 		t_exec_context *exec_context)
@@ -85,40 +60,28 @@ static int	read_and_write_line(t_token *tok, int fd,
 	return (0);
 }
 
-static int	execute_heredoc(char *filename, t_token *tok,
+void	execute_heredoc(char *filename, t_token *tok,
 		t_exec_context *exec_context)
 {
 	int	fd;
 	int	ret;
 
+	signal(SIGINT, heredoc_handle_sigint);
 	fd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
-		return (-1);
+		exit (EXIT_FAILURE);
 	while (1)
 	{
 		ret = read_and_write_line(tok, fd, exec_context);
 		if (ret == -1)
 		{
 			close(fd);
-			return (-1);
+			exit(EXIT_FAILURE);
 		}
 		if (ret == 1)
-			break ;
+		{
+			close(fd);
+			exit(EXIT_SUCCESS);
+		}
 	}
-	close(fd);
-	return (1);
-}
-
-int	handle_heredoc(t_token *token, t_cmd *cmd, t_exec_context *exec_context)
-{
-	if (!token || !token->next || !token->next->content || !exec_context)
-		return (-1);
-	cmd->is_infile_heredoc = true;
-	if (!cmd->infile)
-		cmd->infile = get_heredoc_filename();
-	if (!cmd->infile)
-		return (-1);
-	if (execute_heredoc(cmd->infile, token->next, exec_context) == -1)
-		return (-1);
-	return (1);
 }

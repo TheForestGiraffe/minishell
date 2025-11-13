@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/11/09 17:45:39 by kalhanaw         ###   ########.fr        #
+#    Updated: 2025/11/13 12:21:00 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,8 +26,7 @@ HEADER = $(HEADER_DIR)/signals.h
 # Parser
 PARSER_SRC_DIR = src/parser
 PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_add_argv.c \
-											 fn_build_cmd_lst_I.c \
-											 fn_build_cmd_lst_II.c \
+											 fn_build_cmd_lst.c \
 											 fn_check_token_sequence.c \
 											 fn_cmd_list.c \
 											 fn_crawl.c \
@@ -35,6 +34,8 @@ PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_add_argv.c \
 											 fn_expand_tokens.c \
 											 fn_general_utils.c \
 											 fn_helpers.c \
+											 fn_heredoc_execute.c \
+											 fn_heredoc_prepare.c \
 											 fn_token_lists.c \
 											 fn_tokenizer.c \
 											 parse.c)
