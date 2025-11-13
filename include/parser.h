@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/10 19:38:58 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:25:23 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "types.h"
 
-t_cmd	*parse(char *line, t_exec_context *exec_context);
+void	parse(char *line, t_exec_context *exec_context);
 char	*search_env(char *str, char **envp);
 void	*perror_null(char *str);
 int		cmd_lst_delete_list(t_cmd **head);

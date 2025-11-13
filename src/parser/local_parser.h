@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   local_parser.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/10 19:50:16 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/13 12:23:36 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int		cmd_lst_add_back(t_cmd **head, t_cmd *new);
 int		cmd_lst_delete_list(t_cmd **head);
 
 int		check_token_sequence(t_token *tokens);
-t_cmd	*build_cmd_lst(t_token *token_lst, char **envp);
-int		handle_heredoc(t_token *token, t_cmd *cmd, char **envp);
+void	build_cmd_lst(t_token *token_lst, t_exec_context *exec_context);
+int		handle_heredoc(t_token *token, t_cmd *cmd,
+			t_exec_context *exec_context);
+void	execute_heredoc(char *filename, t_token *tok,
+			t_exec_context *exec_context);
 int		add_argv(t_token *cur_token, t_cmd *cur_cmd);
 
 #endif

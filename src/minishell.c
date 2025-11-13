@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/12 11:37:21 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/13 13:49:21 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	read_parse_and_execute(t_exec_context *exec_context)
 	if (*line)
 	{
 		add_history(line);
-		exec_context->cmd_lst = parse(line, exec_context);
+		parse(line, exec_context);
 		if (exec_context->cmd_lst)
 		{
 			execute(exec_context);
