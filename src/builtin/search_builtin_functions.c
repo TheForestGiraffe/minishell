@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/13 18:37:59 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:43:26 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,22 @@ int	search_builtin_functions(t_exec_context *ctxt)
 	else if (ft_strncmp (name, "exit", len) == 0)
 		return_val = builtin_exit (ctxt);
 	return (return_val);
+}
+
+int	is_builtin(t_cmd *cmd_lst)
+{
+	char	*name;
+
+	name = cmd_lst->argv[0].content;
+	if (ft_strncmp (name, "echo", 5) == 0
+		|| ft_strncmp (name, "cd", 3) == 0
+		|| ft_strncmp (name, "pwd", 4) == 0
+		|| ft_strncmp (name, "export", 7) == 0
+		|| ft_strncmp (name, "unset", 6) == 0
+		|| ft_strncmp (name, "env", 4) == 0
+		|| ft_strncmp (name, "exit", 5) == 0)
+	{
+		return (1);
+	}
+	return (0);
 }

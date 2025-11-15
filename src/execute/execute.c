@@ -6,12 +6,13 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/13 14:06:45 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/15 19:16:42 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "local_execute.h"
 #include "parser.h"
+#include "builtin.h"
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/wait.h>
@@ -90,6 +91,12 @@ int	execute(t_exec_context *exec_context)
 	if (count == 0)
 	{
 		cmd_lst_delete_list (&exec_context->cmd_lst);
+		return (1);
+	}
+	if (count == 1 && is_builtin(exec_context->cmd_lst))
+	{
+		if (run_builtin_in_parent(exec_context) == -1)
+			return (-1);
 		return (1);
 	}
 	process_id_arr = NULL;
