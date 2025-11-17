@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 14:26:12 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/17 13:52:12 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 15:10:24 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	change_dir(char *new_wd, char *cur_wd)
 {
 	if (chdir(new_wd) == -1)
 	{
-		perror("@builtin_cd.chdir: chdir failed");
+		ft_printf("minishell: cd: %s: No such file or directory\n", new_wd);
 		free(cur_wd);
 		free(new_wd);
 		return (-1);
@@ -88,8 +88,6 @@ int	builtin_cd(t_exec_context *exec_context)
 	if (nr_args == -1)
 		return (-1);
 	cur_wd = getcwd(NULL, 0);
-	if (!cur_wd)
-		perror("@builtin_cd.getcwd");
 	ret = get_new_wd(nr_args, &new_wd, exec_context);
 	if (ret == -1 || ret == 1)
 	{
@@ -98,9 +96,9 @@ int	builtin_cd(t_exec_context *exec_context)
 	}
 	if (change_dir(new_wd, cur_wd) == -1)
 		return (-1);
-	if (update_env(new_wd, cur_wd, exec_context->envp) == -1)
+	free(new_wd);
+	if (update_env(cur_wd, exec_context->envp) == -1)
 		return (-1);
 	free(cur_wd);
-	free(new_wd);
 	return (1);
 }
