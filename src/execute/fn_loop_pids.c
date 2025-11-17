@@ -6,12 +6,14 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/17 22:19:26 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 23:13:20 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "local_execute.h"
 #include "signals.h"
+#include "envp.h"
+#include "parser.h"
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,30 +46,42 @@ static int	connect_pipes(int **fd_array, int pos, int count)
 static int	run_on_child(int **fd_array, t_exec_context *exec_context,
 						int i, int count)
 {
+	int	ret;
+
 	signal(SIGQUIT, SIG_DFL);
 	if (connect_pipes(fd_array, i, count - 1) == -1)
 		return (-1);
 	if (assign_input_output (exec_context->cmd_lst) == -1)
-		exit (-1);
-	exit(run_cmd(exec_context));
+	{
+		free_envp(exec_context->envp);
+		cmd_lst_delete_list(&(exec_context->cmd_lst));
+		return (-1);
+	}
+	ret = run_cmd(exec_context);
+	free_envp(exec_context->envp);
+	cmd_lst_delete_list(&(exec_context->cmd_lst));
+	return (ret);
 }
 
 int	loop_pids(int *process_id_arr, int **fd_array,
 			int count, t_exec_context *exec_context)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
 	while (i < count)
 	{
 		process_id_arr[i] = fork();
 		if (process_id_arr[i] == -1)
-		{
-			perror ("@loop_pids.fork");
-			return (-1);
-		}
+			return (perror ("@loop_pids.fork"), -1);
 		if (process_id_arr[i] == 0)
-			return (run_on_child (fd_array, exec_context, i, count));
+		{
+			ret = run_on_child(fd_array, exec_context, i, count);
+			clear_fd_array(fd_array, count - 1);
+			free(process_id_arr);
+			exit(ret);
+		}
 		else
 		{
 			if (exec_context->cmd_lst->next)

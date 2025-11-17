@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/17 18:12:15 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 23:38:16 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	main(int argc, char **argv, char **envp)
 		return (-1);
 	exec_context.exit_state = 0;
 	exec_context.cmd_lst = NULL;
+	exec_context.token_lst = NULL;
 	exec_context.main_pid = getpid();
 	while (1)
 	{

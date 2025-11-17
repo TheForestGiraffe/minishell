@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/15 20:22:19 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 23:37:59 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_cmd
 
 typedef struct s_exec_context
 {
+	t_token	*token_lst;
 	t_cmd	*cmd_lst;
 	char	**envp;
 	int		exit_state;
