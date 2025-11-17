@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/16 22:34:46 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 15:13:33 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	copy_env_line(char **envp, char **new_envp, size_t i)
 static char	**copy_env(char **envp)
 {
 	char	**new_envp;
-	size_t 	i;
+	size_t	i;
 	size_t	length;
 
 	i = 0;
