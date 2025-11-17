@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/16 14:26:12 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/17 13:03:59 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:24:14 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	get_new_wd(int nr_args, char **new_wd,
 		if (!(*new_wd) || (ft_strncmp(*new_wd, "", 1) == 0))
 		{
 			ft_putstr_fd("cd: HOME not set\n", 2);
-			return (-1);
+			return (1);
 		}
 	}
 	else if (nr_args == 2)
@@ -57,9 +57,9 @@ static int	get_new_wd(int nr_args, char **new_wd,
 	else
 	{
 		ft_printf("bash: cd: too many arguments\n");
-		return (-1);
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 static int	get_nr_args(t_token *argv)
@@ -85,6 +85,7 @@ int	builtin_cd(t_exec_context *exec_context)
 	char	*cur_wd;
 	char	*new_wd;
 	int		nr_args;
+	int		ret;
 
 	nr_args = get_nr_args(exec_context->cmd_lst->argv);
 	if (nr_args == -1)
@@ -92,10 +93,11 @@ int	builtin_cd(t_exec_context *exec_context)
 	cur_wd = getcwd(NULL, 0);
 	if (!cur_wd)
 		perror("@builtin_cd.getcwd");
-	if (get_new_wd(nr_args, &new_wd, exec_context) == -1)
+	ret = get_new_wd(nr_args, &new_wd, exec_context);
+	if (ret == -1 || ret == 1)
 	{
 		free(cur_wd);
-		return (-1);
+		return (ret);
 	}
 	if (change_dir(new_wd, cur_wd) == -1)
 		return (-1);
