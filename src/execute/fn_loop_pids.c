@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/17 21:28:13 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/17 22:19:26 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,9 @@ static int	run_on_child(int **fd_array, t_exec_context *exec_context,
 	signal(SIGQUIT, SIG_DFL);
 	if (connect_pipes(fd_array, i, count - 1) == -1)
 		return (-1);
-	if (assign_input_output (exec_context->cmd_lst) == -1
-		|| run_cmd (exec_context) == -1)
+	if (assign_input_output (exec_context->cmd_lst) == -1)
 		exit (-1);
-	exit (1);
+	exit(run_cmd(exec_context));
 }
 
 int	loop_pids(int *process_id_arr, int **fd_array,
