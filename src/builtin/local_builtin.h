@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:54:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 15:45:56 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/25 15:52:01 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	quick_sort(char **str_array, int low, int high);
 
 // fn_built_in_export_II.c
 int		update_env_exports(char *content, t_exec_context *ctxt);
-
+int		search_and_unset(char *content, char ***array, char *equal_pos);
 // fn_built_in_export_III.c
 char	**append_array(char *str, char **array);
 bool	is_valid(char *content);

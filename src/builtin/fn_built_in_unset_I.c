@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/24 16:46:44 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:19:20 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ static int	has_forbidden(char	*str)
 	return (0);
 }
 
-static void	print_error(char *str)
+static int	print_error(char *str)
 {
 	ft_putstr_fd ("unset: '", 2);
 	ft_putstr_fd (str, 2);
 	ft_putstr_fd ("': not a valid identifier\n", 2);
+	return (-1);
 }
 
 int	search_key_index(char *str, char **envp)
@@ -80,6 +81,33 @@ int	builtin_unset(t_exec_context *ctxt)
 	{
 		if (validate_start_letter (current->content) == 0
 			|| has_forbidden (current->content) == 1)
+			return (print_error (current->content));
+		index = search_key_index (current->content, ctxt->envp);
+		if (index >= 0 && unset_this (index, &(ctxt->envp)) == -1)
+			return (-1);
+		else
+		{
+			if (search_and_unset (current->content, &ctxt->exports, NULL) == -1)
+				return (-1);
+		}
+		current = current->next;
+	}
+	return (1);
+}
+
+/*
+int	builtin_unset(t_exec_context *ctxt)
+{
+	t_token	*current;
+	int		index;
+
+	current = ctxt->cmd_lst->argv->next;
+	if (!current || !current->content)
+		return (0);
+	while (current)
+	{
+		if (validate_start_letter (current->content) == 0
+			|| has_forbidden (current->content) == 1)
 		{
 			print_error (current->content);
 			return (-1);
@@ -94,3 +122,5 @@ int	builtin_unset(t_exec_context *ctxt)
 	}
 	return (1);
 }
+
+*/
