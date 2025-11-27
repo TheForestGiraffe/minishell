@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   types.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:41:33 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/17 23:37:59 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/23 17:16:07 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_exec_context
 	t_token	*token_lst;
 	t_cmd	*cmd_lst;
 	char	**envp;
+	char	**exports;
 	int		exit_state;
 	int		main_pid;
 }			t_exec_context;

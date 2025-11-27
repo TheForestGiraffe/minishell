@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/18 14:21:38 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/23 17:23:28 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	main(int argc, char **argv, char **envp)
 	exec_context.envp = copy_envp(envp);
 	if (!exec_context.envp)
 		return (-1);
+	exec_context.exports = NULL;
 	exec_context.exit_state = 0;
 	exec_context.cmd_lst = NULL;
 	exec_context.token_lst = NULL;
