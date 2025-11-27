@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/18 01:46:41 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:39:59 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,12 @@ static int	run_on_child(int **fd_array, t_exec_context *exec_context,
 	if (assign_input_output (exec_context->cmd_lst) == -1)
 	{
 		free_envp(exec_context->envp);
+		free_envp(exec_context->exports);
 		return (-1);
 	}
 	ret = run_cmd(exec_context);
 	free_envp(exec_context->envp);
+	free_envp(exec_context->exports);
 	return (ret);
 }
 

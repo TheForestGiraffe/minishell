@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 14:13:04 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/17 18:50:39 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:29:31 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 static void cleanup_and_exit(t_exec_context *exec_context, int exit_code)
 {
 	free_envp(exec_context->envp);
+	free_envp(exec_context->exports);
 	cmd_lst_delete_list(&exec_context->cmd_lst);
 	exit(exit_code);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/23 17:23:28 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:28:20 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	rl_clear_history();
 	free_envp(exec_context.envp);
+	free_envp(exec_context.exports);
 	return (0);
 }

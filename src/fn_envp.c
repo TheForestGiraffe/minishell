@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/17 18:13:49 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:28:09 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	free_envp(char **envp)
 {
 	size_t	i;
 
+	if (!envp)
+		return;
 	i = 0;
 	while (envp[i])
 		i++;
