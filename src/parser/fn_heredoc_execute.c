@@ -6,7 +6,7 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/18 14:21:51 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/28 15:03:48 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	cleanup_and_exit(t_exec_context *exec_context,
 				int fd, int exit_code)
 {
 	free_envp(exec_context->envp);
+	free_envp(exec_context->exports);
 	cmd_lst_delete_list_no_unlink(&(exec_context->cmd_lst));
 	tls_delete_list(&exec_context->token_lst);
 	close(fd);
