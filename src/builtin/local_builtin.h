@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:54:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 15:52:01 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:26:01 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		builtin_exit(t_exec_context *ctxt);
 int		validate_start_letter(char *str);
 int		search_key_index(char *str, char **envp);
 int		search_index(char *str, char **envp);
+int		has_forbidden(char	*str);
 
 // fn_built_in_unset_II.c
 int		unset_this(int index, char ***envp);

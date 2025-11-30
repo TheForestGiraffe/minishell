@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_envp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:54:30 by plima             #+#    #+#             */
-/*   Updated: 2025/11/27 20:28:09 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:05:49 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	free_envp(char **envp)
 	size_t	i;
 
 	if (!envp)
-		return;
+		return ;
 	i = 0;
 	while (envp[i])
 		i++;

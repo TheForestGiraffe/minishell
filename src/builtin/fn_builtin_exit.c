@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_builtin_exit.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 14:13:04 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/27 20:29:31 by pecavalc         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:07:06 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-static void cleanup_and_exit(t_exec_context *exec_context, int exit_code)
+static void	cleanup_and_exit(t_exec_context *exec_context, int exit_code)
 {
 	free_envp(exec_context->envp);
 	free_envp(exec_context->exports);

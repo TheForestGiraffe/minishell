@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:07 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 16:19:20 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:21:53 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	validate_start_letter(char *str)
 	return (1);
 }
 
-static int	has_forbidden(char	*str)
+int	has_forbidden(char	*str)
 {
 	int		i;
 

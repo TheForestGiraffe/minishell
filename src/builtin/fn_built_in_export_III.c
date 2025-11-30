@@ -6,7 +6,7 @@
 /*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 15:45:32 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/11/30 21:22:35 by kalhanaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ bool	is_valid(char *content)
 {
 	char	*char_position;
 
-	if (!validate_start_letter (content))
+	if (!validate_start_letter (content)
+		|| has_forbidden (content) == 1)
 		return (false);
 	char_position = ft_strrchr (content, '=');
 	if (char_position)
