@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_built_in_export_I.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 15:44:54 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/12/01 09:46:40 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	print_exports(t_exec_context *ctxt)
 	while (++i < len)
 		printf ("declare -x %s\n", temp[i]);
 	free (temp);
+	temp = NULL;
 	return (1);
 }
 

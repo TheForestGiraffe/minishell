@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_built_in_export_II.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/25 15:40:10 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/12/01 09:49:06 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,20 @@ int	search_and_unset(char *content, char ***array, char *equal_pos)
 			return (perror_int ("@search_and_unset:ft_substring: ", -1));
 	}
 	index = search_index (content, *array);
-	if (index >= 0)
+	if (index >= 0 && unset_this (index, array) == -1)
 	{
-		if (unset_this (index, array) == -1)
+		if (equal_pos)
 		{
-			if (equal_pos)
-				free (content);
-			return (-1);
+			free (content);
+			content = NULL;
 		}
+		return (-1);
 	}
 	if (equal_pos)
+	{
 		free (content);
+		content = NULL;
+	}
 	return (1);
 }
 
