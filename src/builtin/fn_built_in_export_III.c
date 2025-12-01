@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fn_built_in_export_III.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/30 21:22:35 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:48:05 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,21 @@ bool	is_valid(char *content)
 {
 	char	*char_position;
 
-	if (!validate_start_letter (content)
-		|| has_forbidden (content) == 1)
+	if (!validate_start_letter (content))
 		return (false);
 	char_position = ft_strrchr (content, '=');
 	if (char_position)
 	{
 		if (has_forbidden_n (content,
-				char_position - content))
+				char_position - content) == 1)
 			return (false);
 		else
 			return (true);
+	}
+	else
+	{
+		if (has_forbidden (content) == 1)
+			return (false);
 	}
 	return (true);
 }
