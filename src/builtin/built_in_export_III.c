@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_built_in_export_III.c                           :+:      :+:    :+:   */
+/*   built_in_export_III.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/12/01 10:48:05 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:03:08 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <parser.h>
-#include "local_builtin.h"
-#include "local_execute.h"
+#include "builtin_private.h"
+#include "execute_private.h"
 #include "libft.h"
 
 static int	has_forbidden_n(char *str, int len)

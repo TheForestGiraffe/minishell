@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_heredoc_execute.c                               :+:      :+:    :+:   */
+/*   heredoc_execute.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/28 15:03:48 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:59:10 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_parser.h"
+#include "parser_private.h"
 #include "libft.h"
 #include "envp.h"
 #include <stdio.h>

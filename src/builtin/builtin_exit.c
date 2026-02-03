@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_builtin_exit.c                                  :+:      :+:    :+:   */
+/*   builtin_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 14:13:04 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/30 21:07:06 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:03:27 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "local_builtin.h"
+#include "builtin_private.h"
 #include "types.h"
 #include "envp.h"
 #include "parser.h"

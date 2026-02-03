@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_crawl.c                                         :+:      :+:    :+:   */
+/*   crawl.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:36:45 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/07 10:11:33 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:58:39 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_parser.h"
+#include "parser_private.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <libft.h>

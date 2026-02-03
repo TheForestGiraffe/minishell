@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_check_token_sequence.c                          :+:      :+:    :+:   */
+/*   check_token_sequence.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:17:15 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/07 10:08:07 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:58:19 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
-#include "local_parser.h"
+#include "parser_private.h"
 #include <unistd.h>
 
 static int	check_pipe(t_token *cur_token, t_token *token_lst);

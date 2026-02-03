@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_built_in_export_I.c                             :+:      :+:    :+:   */
+/*   built_in_export_I.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/12/01 09:46:40 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:02:31 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "local_builtin.h"
-#include "local_execute.h"
+#include "builtin_private.h"
+#include "execute_private.h"
 #include "libft.h"
 
 static void	fill_temp(char **temp, char **envp, char **exports)

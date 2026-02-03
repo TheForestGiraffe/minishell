@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_assign_input_output.c                           :+:      :+:    :+:   */
+/*   assign_input_output.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/13 17:32:22 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:00:42 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "local_execute.h"
+#include "execute_private.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdio.h>

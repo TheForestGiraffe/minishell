@@ -6,11 +6,11 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 16:55:08 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/17 21:56:23 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:00:27 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_execute.h"
+#include "execute_private.h"
 #include "parser.h"
 #include "builtin.h"
 #include "libft.h"

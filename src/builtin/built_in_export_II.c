@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_built_in_export_II.c                            :+:      :+:    :+:   */
+/*   built_in_export_II.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 09:44:01 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/12/01 11:01:33 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:02:58 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include "local_builtin.h"
-#include "local_execute.h"
+#include "builtin_private.h"
+#include "execute_private.h"
 #include "libft.h"
 
 int	search_and_unset(char *content, char ***array, char *equal_pos)

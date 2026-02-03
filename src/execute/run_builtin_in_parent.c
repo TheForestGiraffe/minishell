@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_run_builtin_in_parent.c                         :+:      :+:    :+:   */
+/*   run_builtin_in_parent.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 16:52:57 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/17 13:35:11 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/04 00:01:05 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdio.h>
 #include "types.h"
-#include "local_execute.h"
+#include "execute_private.h"
 #include "builtin.h"
 
 static void	restore_fds(int stdin, int stdout)

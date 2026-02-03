@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2025/12/01 10:44:34 by pecavalc         ###   ########.fr        #
+#    Updated: 2026/02/04 00:11:38 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 SRC_DIR = src
 OBJ_DIR = obj
 
-SRC = $(addprefix $(SRC_DIR)/, fn_signals.c fn_envp.c)
+SRC = $(addprefix $(SRC_DIR)/, signals.c envp.c)
 SRC_MAIN = $(addprefix $(SRC_DIR)/,minishell.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 OBJ_MAIN = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC_MAIN))
@@ -25,19 +25,19 @@ HEADER = $(HEADER_DIR)/signals.h $(HEADER_DIR)/envp.h
 
 # Parser
 PARSER_SRC_DIR = src/parser
-PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, fn_add_argv.c \
-											 fn_build_cmd_lst.c \
-											 fn_check_token_sequence.c \
-											 fn_cmd_list.c \
-											 fn_crawl.c \
-											 fn_expand_tokens_utils.c \
-											 fn_expand_tokens.c \
-											 fn_general_utils.c \
-											 fn_helpers.c \
-											 fn_heredoc_execute.c \
-											 fn_heredoc_prepare.c \
-											 fn_token_lists.c \
-											 fn_tokenizer.c \
+PARSER_SRC = $(addprefix $(PARSER_SRC_DIR)/, add_argv.c \
+											 build_cmd_lst.c \
+											 check_token_sequence.c \
+											 cmd_list.c \
+											 crawl.c \
+											 expand_tokens_utils.c \
+											 expand_tokens.c \
+											 general_utils.c \
+											 helpers.c \
+											 heredoc_execute.c \
+											 heredoc_prepare.c \
+											 token_lists.c \
+											 tokenizer.c \
 											 parse.c)
 
 PARSER_OBJ_DIR = obj/parser
@@ -45,44 +45,44 @@ PARSER_OBJ = $(patsubst $(PARSER_SRC_DIR)/%.c, \
 				$(PARSER_OBJ_DIR)/%.o, $(PARSER_SRC))
 
 PUB_PARSER_HEADER_DIR = include
-LOCAL_PARSER_HEADER_DIR = $(PARSER_SRC_DIR)
+PRIVATE_PARSER_HEADER_DIR = $(PARSER_SRC_DIR)
 PARSER_HEADERS = $(PUB_PARSER_HEADER_DIR)/parser.h \
-				 $(LOCAL_PARSER_HEADER_DIR)/local_parser.h
+				 $(PRIVATE_PARSER_HEADER_DIR)/parser_private.h
 
 # Execute
 EXECUTE_SRC_DIR = src/execute
 EXECUTE_SRC = $(addprefix $(EXECUTE_SRC_DIR)/,execute.c \
-												fn_assign_input_output.c \
-												fn_get_full_path.c \
-												fn_run_builtin_in_parent.c \
-												fn_run_cmd.c \
-												fn_create_process_id_arr.c \
-												fn_loop_pids.c \
-												fn_utils.c)
+												assign_input_output.c \
+												get_full_path.c \
+												run_builtin_in_parent.c \
+												run_cmd.c \
+												create_process_id_arr.c \
+												loop_pids.c \
+												utils.c)
 
 EXECUTE_OBJ_DIR = obj/execute
 EXECUTE_OBJ = $(patsubst $(EXECUTE_SRC_DIR)/%.c, \
 				$(EXECUTE_OBJ_DIR)/%.o, $(EXECUTE_SRC))
 
 PUB_EXECUTE_HEADER_DIR = src/execute
-LOCAL_EXECUTE_HEADER_DIR = $(EXECUTE_SRC_DIR)
+PRIVATE_EXECUTE_HEADER_DIR = $(EXECUTE_SRC_DIR)
 EXECUTE_HEADERS = $(PUB_EXECUTE_HEADER_DIR)/execute.h \
-				 $(LOCAL_EXECUTE_HEADER_DIR)/local_execute.h
+				 $(PRIVATE_EXECUTE_HEADER_DIR)/execute_private.h
 
 # built_in
 BUILTIN_SRC_DIR = src/builtin
-BUILTIN_SRC = $(addprefix $(BUILTIN_SRC_DIR)/, fn_built_in_cd.c \
-												fn_built_in_cd_update_env.c \
-												fn_built_in_env.c \
-												fn_built_in_unset_I.c \
-												fn_built_in_unset_II.c \
-												fn_built_in_export_I.c \
-												fn_built_in_export_II.c \
-												fn_built_in_export_III.c \
-												fn_built_in_pwd.c \
-												fn_quick_sort.c \
-												fn_builtin_echo.c \
-												fn_builtin_exit.c \
+BUILTIN_SRC = $(addprefix $(BUILTIN_SRC_DIR)/, built_in_cd.c \
+												built_in_cd_update_env.c \
+												built_in_env.c \
+												built_in_unset_I.c \
+												built_in_unset_II.c \
+												built_in_export_I.c \
+												built_in_export_II.c \
+												built_in_export_III.c \
+												built_in_pwd.c \
+												quick_sort.c \
+												builtin_echo.c \
+												builtin_exit.c \
 												search_builtin_functions.c)
 
 BUILTIN_OBJ_DIR = obj/builtin
@@ -90,9 +90,9 @@ BUILTIN_OBJ = $(patsubst $(BUILTIN_SRC_DIR)/%.c, \
 				$(BUILTIN_OBJ_DIR)/%.o, $(BUILTIN_SRC))
 
 PUB_BUILTIN_HEADER_DIR = include
-LOCAL_BUILTIN_HEADER_DIR = $(BUILTIN_SRC_DIR)
+PRIVATE_BUILTIN_HEADER_DIR = $(BUILTIN_SRC_DIR)
 BUILTIN_HEADERS = $(PUB_BUILTIN_HEADER_DIR)/builtin.h \
-				 $(LOCAL_BUILTIN_HEADER_DIR)/local_builtin.h
+				 $(PRIVATE_BUILTIN_HEADER_DIR)/builtin_private.h
 
 # Directories of all objects above - only used to create obj folders
 OBJ_DIRS = $(OBJ_DIR) $(PARSER_OBJ_DIR) $(EXECUTE_OBJ_DIR) $(BUILTIN_OBJ_DIR)
@@ -108,10 +108,10 @@ LDFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
 CPPFLAGS = -I$(READLINE_PATH)/include
 
 CFLAGS = -g -Wall -Wextra -Werror -I$(HEADER_DIR) \
-								  -I$(LOCAL_PARSER_HEADER_DIR) \
+								  -I$(PRIVATE_PARSER_HEADER_DIR) \
 							   	  -I$(LIBFT_HEADER_DIR) \
-							   	  -I$(LOCAL_EXECUTE_HEADER_DIR) \
-							   	  -I$(LOCAL_BUILTIN_HEADER_DIR)LOCAL_EXECUTE_HEADER_DIR
+							   	  -I$(PRIVATE_EXECUTE_HEADER_DIR) \
+							   	  -I$(PRIVATE_BUILTIN_HEADER_DIR)
 
 all: $(OBJ_DIRS) $(NAME)
 
@@ -149,10 +149,10 @@ $(LIBFT):
 # Valgrind rules
 valgrind: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
-	--suppressions=readline_suppress.supp ./$(NAME)
+	--suppressions=test/readline_suppress.supp ./$(NAME)
 valchild: $(NAME)
 	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes \
-	--track-fds=yes --trace-children=yes --suppressions=readline_suppress.supp ./$(NAME)
+	--track-fds=yes --trace-children=yes --suppressions=test/readline_suppress.supp ./$(NAME)
 
 # --------------------------------------------------------------------------- #
 # 								UNIT TESTS									  #

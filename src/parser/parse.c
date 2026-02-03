@@ -6,11 +6,11 @@
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 13:34:00 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/17 23:51:41 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:59:58 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_parser.h"
+#include "parser_private.h"
 #include <stddef.h>
 
 int	parse(char *line, t_exec_context *exec_context)

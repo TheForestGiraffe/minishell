@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_heredoc_prepare.c                               :+:      :+:    :+:   */
+/*   heredoc_prepare.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 12:57:06 by pecavalc          #+#    #+#             */
-/*   Updated: 2025/11/15 15:53:49 by pecavalc         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:59:16 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_parser.h"
+#include "parser_private.h"
 #include "libft.h"
 #include <stdio.h>
 #include <readline/readline.h>

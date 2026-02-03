@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fn_token_lists.c                                   :+:      :+:    :+:   */
+/*   token_lists.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kalhanaw <kalhanaw@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/05 19:37:21 by kalhanaw          #+#    #+#             */
-/*   Updated: 2025/11/10 18:19:20 by kalhanaw         ###   ########.fr       */
+/*   Updated: 2026/02/03 23:59:25 by pecavalc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
-#include "local_parser.h"
+#include "parser_private.h"
 
 int	tls_add_back(t_token **lst, t_token *new)
 {
