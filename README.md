@@ -112,6 +112,7 @@ echo $HOME
 
 ---
 
-## Notes
+## Notes & Compatibility
 
-This implementation aims to be robust, readable, and maintainable while respecting the project specifications.
+- This implementation aims to be robust, readable, and maintainable while respecting the project specifications.
+- Compatible with Linux and MacOS
