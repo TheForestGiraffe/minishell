@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOCAL_EXECUTE_H
-# define LOCAL_EXECUTE_H
+#ifndef EXECUTE_PRIVATE_H
+# define EXECUTE_PRIVATE_H
 
 # include "types.h"
 

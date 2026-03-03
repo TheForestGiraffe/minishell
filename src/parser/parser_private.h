@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOCAL_PARSER_H
-# define LOCAL_PARSER_H
+#ifndef PARSER_PRIVATE_H
+# define PARSER_PRIVATE_H
 
 # include "types.h"
 

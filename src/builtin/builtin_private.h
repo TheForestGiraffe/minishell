@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LOCAL_BUILTIN_H
-# define LOCAL_BUILTIN_H
+#ifndef BUILTIN_PRIVATE_H
+# define BUILTIN_PRIVATE_H
 
 # include "types.h"
 

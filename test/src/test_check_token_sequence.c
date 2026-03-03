@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "local_parser.h"
+#include "parser_private.h"
 #include "libft.h"
 #include <stdio.h>
 
