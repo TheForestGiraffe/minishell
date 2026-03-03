@@ -25,5 +25,4 @@ jobs:
       - name: Run ${{ matrix.target }}
         continue-on-error: ${{ matrix.target == 'test_norm' }}
         run: |
-          make fclean
           make ${{ matrix.target }}
