@@ -1,12 +1,31 @@
-runs-on: ubuntu-latest
+name: Minishell CI
 
-steps:
-  - uses: actions/checkout@v4
+on:
+  push:
+  pull_request:
 
-  - name: Install deps
-    run: |
-      sudo apt-get update
-      sudo apt-get install -y build-essential libreadline-dev libncurses-dev
+jobs:
+  tests:
+    name: ${{ matrix.target }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [test_norm, test_1, test_2, test_3]
 
-  - name: Build and test
-    run: make test
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential \
+            libreadline-dev \
+            libncurses-dev
+
+      - name: Run ${{ matrix.target }}
+        run: |
+          make fclean
+          make ${{ matrix.target }}
