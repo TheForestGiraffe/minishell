@@ -1,65 +1,74 @@
 #include "parser_private.h"
-#include <stddef.h>
 #include <stdio.h>
+#include <string.h>
 
-void	print_list(t_token *ls_token)
+#define PAD_WIDTH 55
+
+typedef struct s_case {
+	const char	*desc;
+	char		*input;
+	int			expect_ok; /* 1 = should succeed, 0 = should fail */
+}	t_case;
+
+static void	print_status(const char *label, int ok)
 {
-	char *t_str[] = 
-	{
-	"WORD",
-	"PIPE",
-	"INPUT",
-	"OUTPUT",
-	"RINPUT",
-	"ROUTPUT",
-	"S_QT",
-	"D_QT"
-	};
+	int len = (int)strlen(label);
 
-
-	if (ls_token == NULL)
-	{
-		printf ("list is NULL\n");
-		return ;
-	}
-	while (ls_token->next)
-	{
-		printf ("%-25s type:%s\n", ls_token->content, t_str[ls_token->type]);
-
-		ls_token = ls_token->next;
-	}
-	printf ("%-25s type:%s\n", ls_token->content, t_str[ls_token->type]);
-
+	printf("%s", label);
+	if (len < PAD_WIDTH)
+		printf("%*s", PAD_WIDTH - len, "");
+	printf("[%s]\n", ok ? "OK" : "KO");
 }
 
-int	main()
+static int	run_case(const t_case *tc)
 {
-	t_token	*ls_token;
+	t_token	*lst;
+	int		got_ok;
+	int		ok;
 
-	// char *str = " ";
-	// char *str = "";
-	// char *str = "<<<<       ";
-	// char *str = "   <'<<'       ";
-	// char *str = "<		< <<       ";
-	char *str = "       the \"Weather\"   is | very co<ld but it is not cold>>er 'than this' yester<<day";
-	// char *str = "<  >";
-	// char *str = "this is a 'tom|ato' but \"falafel is better\" than nothi|ng at all";
-	// char *str = "echo 'hi'\"there\"";
-	//char *str = "echo \"hello 'nested quotes\"";
-	// char *str = "echo'a'";
-	// char *str = "         kh\"a abc\"kaka\"     samba\"";
-	// char *str = "''";
-	// char *str = NULL;
-	// char *str = "'";
+	lst = tokenizer(tc->input);
+	got_ok = (lst != NULL);
 
-	ls_token = tokenizer(str);
-	if (!ls_token)
+	ok = (got_ok == tc->expect_ok);
+
+	print_status(tc->desc, ok);
+
+	if (lst)
+		tls_delete_list(&lst);
+
+	return ok;
+}
+
+int	main(void)
+{
+	t_case	tests[] = {
+		{ "Single space", " ", 0 },
+		{ "Empty string", "", 0},
+		{ "Redir then quoted heredoc", "   <'<<'       ", 1 },
+		{ "Mixed long input",
+		  "       the \"Weather\"   is | very co<ld but it is not cold>>er 'than this' yester<<day", 1 },
+		{ "Pipe inside quotes",
+		  "this is a 'tom|ato' but \"falafel is better\" than nothi|ng at all", 1 },
+		{ "Adjacent quote blocks", "echo 'hi'\"there\"", 1 },
+		{ "No-space quotes", "echo'a'", 1 },
+		{ "Messy quoted words", "         kh\"a abc\"kaka\"     samba\"", 1 },
+		{ "Empty quotes", "''", 1 },
+		{ "NULL input", NULL, 0 },
+		{ "Single quote only", "'", 0 },
+	};
+
+	int failures = 0;
+	size_t i;
+
+	for (i = 0; i < sizeof(tests)/sizeof(tests[0]); i++)
+		if (!run_case(&tests[i]))
+			failures++;
+
+	if (failures)
 	{
-		printf ("Couldn't create a list of tokens\n");
-		return (-1);
+		printf("test_build_cmd_lst: [KO]\n");
+		return (1);
 	}
-
-	print_list(ls_token);
-	tls_delete_list (&ls_token);
-
+	printf("test_build_cmd_lst: [OK]\n");
+	return (0);
 }

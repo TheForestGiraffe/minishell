@@ -11,10 +11,11 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "envp.h"
 #include "libft.h"
 #include <stdio.h>
 
-void	test(char *description, char *line, char ***expected_cmds, char **envp, int *res);
+void	test(char *description, char *line, char ***expected_cmds, char **envp_copy, int *res);
 void	print_result(int ok, char *description);
 static int	verify_cmd_list(t_cmd *cmd_list, char ***expected_cmds);
 static int	compare_argv(t_token *argv, char **expected);
@@ -23,7 +24,13 @@ int	main(int argc, char **argv, char **envp)
 {
 	(void)argc;
 	(void)argv;
-	int	res = 1;
+	char	**envp_copy;
+	int		res;
+	
+	res = 1;
+	envp_copy = copy_envp(envp);
+	if (!envp_copy)
+		return (1);
 
 	printf("\nTesting the correct build of the cmd_lst, including argv check.\n");
 	printf("Other data, such as in and outfiles, are not verified here.\n\n");
@@ -33,34 +40,34 @@ int	main(int argc, char **argv, char **envp)
 	char *pipeline1_cmd2[] = {"grep", "main", NULL};
 	char *pipeline1_cmd3[] = {"wc", "-l", NULL};
 	char **pipeline1[] = {pipeline1_cmd1, pipeline1_cmd2, pipeline1_cmd3, NULL};
-	test("Pipeline: ls -l | grep main | wc -l", "ls -l | grep main | wc -l", pipeline1, envp, &res);
+	test("Pipeline: ls -l | grep main | wc -l", "ls -l | grep main | wc -l", pipeline1, envp_copy, &res);
 
 	char *pipeline2_cmd1[] = {"echo", "hello", "world", NULL};
 	char **pipeline2[] = {pipeline2_cmd1, NULL};
-	test("Single command: echo hello world", "echo hello world", pipeline2, envp, &res);
+	test("Single command: echo hello world", "echo hello world", pipeline2, envp_copy, &res);
 
 	char *pipeline3_cmd1[] = {"cat", NULL};
 	char *pipeline3_cmd2[] = {"wc", "-l", NULL};
 	char **pipeline3[] = {pipeline3_cmd1, pipeline3_cmd2, NULL};
-	test("Pipeline with simple pipe: cat | wc -l", "cat | wc -l", pipeline3, envp, &res);
+	test("Pipeline with simple pipe: cat | wc -l", "cat | wc -l", pipeline3, envp_copy, &res);
 
 	// Redirection tests (argv only)
 	char *redir1_cmd[] = {"echo", "hello", NULL};
 	char **redir1[] = {redir1_cmd, NULL};
-	test("Simple output redirection: echo hello > out.txt", "echo hello > out.txt", redir1, envp, &res);
+	test("Simple output redirection: echo hello > out.txt", "echo hello > out.txt", redir1, envp_copy, &res);
 
 	char *redir2_cmd[] = {"cat", NULL};
 	char **redir2[] = {redir2_cmd, NULL};
-	test("Multiple output redirections: cat > file1.txt >> file2.txt", "cat > file1.txt >> file2.txt", redir2, envp, &res);
+	test("Multiple output redirections: cat > file1.txt >> file2.txt", "cat > file1.txt >> file2.txt", redir2, envp_copy, &res);
 
 	char *redir3_cmd[] = {"cat", NULL};
 	char **redir3[] = {redir3_cmd, NULL};
-	test("Input and output redirection: cat < input.txt > file.txt", "cat < input.txt > file.txt", redir3, envp, &res);
+	test("Input and output redirection: cat < input.txt > file.txt", "cat < input.txt > file.txt", redir3, envp_copy, &res);
 
-	printf("\nHeredoc to be tested next - enter heredoc input and terminate with EOF:\n");
-	char *redir4_cmd[] = {"cat", NULL};
-	char **redir4[] = {redir4_cmd, NULL};
-	test("Heredoc input: cat << EOF", "cat << EOF", redir4, envp, &res);
+	// printf("\nHeredoc to be tested next - enter heredoc input and terminate with EOF:\n");
+	// char *redir4_cmd[] = {"cat", NULL};
+	// char **redir4[] = {redir4_cmd, NULL};
+	// test("Heredoc input: cat << EOF", "cat << EOF", redir4, envp_copy, &res);
 
 	if (res == 1)
 		printf("\ntest_build_cmd_lst: [OK]\n\n");
@@ -70,12 +77,12 @@ int	main(int argc, char **argv, char **envp)
 	return 0;
 }
 
-void	test(char *description, char *line, char ***expected_cmds, char **envp, int *res)
+void	test(char *description, char *line, char ***expected_cmds, char **envp_copy, int *res)
 {
 	t_exec_context	exec_context;
 
 	ft_bzero(&exec_context, sizeof(t_exec_context));
-	exec_context.envp = envp;
+	exec_context.envp = envp_copy;
 	exec_context.exit_state = 0;
 
 	parse(line, &exec_context);
