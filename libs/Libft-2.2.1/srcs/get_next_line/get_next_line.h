@@ -19,14 +19,16 @@
 
 # include <stddef.h>
 
-typedef struct s_file {
+typedef struct s_gnl_file
+{
 	int				fd;
 	char			*buffer;
 	ssize_t			position;
 	ssize_t			bytes_read;
 }					t_gnl_file;
 
-typedef struct s_node {
+typedef struct s_node
+{
 	t_gnl_file		file;
 	struct s_node	*previous;
 	struct s_node	*next;

@@ -41,5 +41,5 @@ int	ft_printf(const char *str, ...)
 	va_end(args);
 	if (len <= INT_MAX)
 		return ((int)len);
-	return (-1); 
+	return (-1);
 }
