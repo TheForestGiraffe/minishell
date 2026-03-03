@@ -11,11 +11,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [test_norm, test_1, test_2, test_3]
+        target: [test_norm, test_tokenizer, test_check_token_sequence, test_build_cmd_lst]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install dependencies
         run: |
@@ -26,6 +25,7 @@ jobs:
             libncurses-dev
 
       - name: Run ${{ matrix.target }}
+        continue-on-error: ${{ matrix.target == 'test_norm' }}
         run: |
           make fclean
           make ${{ matrix.target }}

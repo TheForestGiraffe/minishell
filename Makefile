@@ -172,7 +172,7 @@ $(TEST_OBJ_DIR):
 
 # NORMINETTE
 test_norm:
-	-norminette -R CheckForbiddenHeaderSource \
+	norminette -R CheckForbiddenHeaderSource \
 	$(SRC_DIR) $(HEADER_DIR) $(LIBFT_DIR)/srcs $(LIBFT_DIR)/include
 
 # PARSER TESTS
