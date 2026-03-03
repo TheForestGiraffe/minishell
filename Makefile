@@ -102,10 +102,14 @@ LIBFT_DIR = libs/Libft-2.2.1
 LIBFT_HEADER_DIR = $(LIBFT_DIR)/include
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# For Mac OS compatibility
-READLINE_PATH := $(shell brew --prefix readline)
-LDFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
+# For Linux
+LDFLAGS = -lreadline -lhistory -lncurses
 CPPFLAGS = -I$(READLINE_PATH)/include
+
+# For Mac OS compatibility
+# READLINE_PATH := $(shell brew --prefix readline)
+# LDFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
+# CPPFLAGS = -I$(READLINE_PATH)/include
 
 CFLAGS = -g -Wall -Wextra -Werror -I$(HEADER_DIR) \
 								  -I$(PRIVATE_PARSER_HEADER_DIR) \
@@ -168,7 +172,7 @@ $(TEST_OBJ_DIR):
 
 # NORMINETTE
 test_norm:
-	norminette -R CheckForbiddenHeaderSource \
+	-norminette -R CheckForbiddenHeaderSource \
 	$(SRC_DIR) $(HEADER_DIR) $(LIBFT_DIR)/srcs $(LIBFT_DIR)/include
 
 # PARSER TESTS
@@ -208,18 +212,18 @@ TEST_3_OBJ = $(patsubst $(TEST_SRC_DIR)/%.c, $(TEST_OBJ_DIR)/%.o, \
 # Compile and run test 3
 $(TEST_3_NAME): $(LIBFT) $(OBJ_DIRS) $(OBJ) $(PARSER_OBJ) $(NAME) \
 				$(TEST_OBJ_DIR) $(TEST_3_OBJ)
-	@cc $(CFLAGS) $(LDFLAGS) $(OBJ) $(PARSER_OBJ) $(TEST_3_OBJ) \
-		$(LIBFT) -o $(TEST_3_NAME)
+	@cc $(CFLAGS) $(OBJ) $(PARSER_OBJ) $(TEST_3_OBJ) \
+	$(LIBFT) -o $(TEST_3_NAME) $(LDFLAGS)
 	./$(TEST_3_NAME)
 
 # Compile test objects
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.c
 	cc $(CFLAGS) -c $< -o $@
 
-test: 		test_norm $(TEST_1_NAME) $(TEST_2_NAME) $(TEST_3_NAME)
-test_1: 	$(TEST_1_NAME)
-test_2:		$(TEST_2_NAME)
-test_3:		$(TEST_3_NAME)
+test: 						test_norm $(TEST_1_NAME) $(TEST_2_NAME) $(TEST_3_NAME)
+test_tokenizer:				$(TEST_2_NAME)
+test_check_token_sequence: 	$(TEST_1_NAME)
+test_build_cmd_lst:			$(TEST_3_NAME)
 
 # --------------------------------------------------------------------------- #
 # 								CLEAN UP									  #
