@@ -1,48 +1,76 @@
-name: Minishell CI
+name: Minishell CI Pipeline
 
 on:
   push:
   pull_request:
 
 jobs:
-  libft_tests:
-    name: Libft unit tests
+
+  libft_norm:
+    name: "Libft: Check Norm"
     runs-on: ubuntu-latest
+    continue-on-error: true
+
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install build dependencies
+      - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential python3 python3-pip
+          sudo apt-get install -y python3 python3-pip
           pip3 install norminette
 
-      - name: Libft norm
+      - name: Run Norm
         working-directory: libs/Libft-2.2.1/tests
-        continue-on-error: true
         run: make norm
 
-      - name: Libft unit tests
+
+  libft_unit_tests:
+    name: "Libft: Unit Tests"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+
+      - name: Run Unit Tests
         working-directory: libs/Libft-2.2.1/tests
         run: make test
 
+
   minishell_tests:
-    name: ${{ matrix.target }}
+    name: ${{ matrix.label }}
     runs-on: ubuntu-latest
+
     strategy:
       fail-fast: false
       matrix:
-        target: [test_norm, test_tokenizer, test_check_token_sequence, test_build_cmd_lst]
+        include:
+          - target: test_norm
+            label: "Minishell: Check Norm"
+
+          - target: test_tokenizer
+            label: "Minishell: Test Tokenizer"
+
+          - target: test_check_token_sequence
+            label: "Minishell: Test Check Token Sequence"
+
+          - target: test_build_cmd_lst
+            label: "Minishell: Test Command List Builder"
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential libreadline-dev libncurses-dev python3 python3-pip
           pip3 install norminette
 
-      - name: Run ${{ matrix.target }}
+      - name: Run ${{ matrix.label }}
         continue-on-error: ${{ matrix.target == 'test_norm' }}
         run: make ${{ matrix.target }}
