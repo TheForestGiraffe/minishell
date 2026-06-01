@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2026/06/01 11:54:51 by pecavalc         ###   ########.fr        #
+#    Updated: 2026/06/01 14:35:08 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,7 @@ EXECUTE_OBJ_DIR = obj/execute
 EXECUTE_OBJ = $(patsubst $(EXECUTE_SRC_DIR)/%.c, \
 				$(EXECUTE_OBJ_DIR)/%.o, $(EXECUTE_SRC))
 
-PUB_EXECUTE_HEADER_DIR = src/execute
+PUB_EXECUTE_HEADER_DIR = include
 PRIVATE_EXECUTE_HEADER_DIR = $(EXECUTE_SRC_DIR)
 EXECUTE_HEADERS = $(PUB_EXECUTE_HEADER_DIR)/execute.h \
 				 $(PRIVATE_EXECUTE_HEADER_DIR)/execute_private.h
