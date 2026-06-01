@@ -75,8 +75,8 @@ jobs:
         continue-on-error: ${{ matrix.target == 'test_norm' }}
         run: make ${{ matrix.target }}
 
-  minishell_build:
-    name: "Minishell: Build"
+  minishell_build_linux:
+    name: "Minishell: Build on Linux"
     runs-on: ubuntu-latest
 
     steps:
@@ -88,6 +88,23 @@ jobs:
           build-essential \
           libreadline-dev \
           libncurses-dev
+
+      - name: Build Minishell
+        run: make
+
+      - name: Clean Build
+        run: make fclean
+
+  minishell_build_macos:
+    name: "Minishell: Build on macOS"
+    runs-on: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Readline
+        run: |
+          brew install readline
 
       - name: Build Minishell
         run: make
