@@ -62,6 +62,16 @@ The shell implements the following built-in commands:
 
 ## Usage
 
+### Pre-Requisites
+On Debian/Ubuntu systems, install the required build dependencies:
+```bash
+sudo apt-get update
+sudo apt-get install -y \
+build-essential \
+libreadline-dev \
+libncurses-dev
+```
+
 ### Build
 
 ```bash
