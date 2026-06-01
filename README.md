@@ -72,6 +72,13 @@ libreadline-dev \
 libncurses-dev
 ```
 
+On macOS:
+
+Install readline (e.g. using Homebrew):
+```bash
+brew install readline
+```
+
 ### Build
 
 ```bash
@@ -94,10 +101,73 @@ make re
 
 ### Command Examples
 
+Basic commands:
 ```bash
-ls -l | grep txt > output.txt
-export PATH=/usr/bin
+pwd
+echo Hello, world!
+ls -la
+```
+
+Environment variables:
+```bash
 echo $HOME
+echo $PATH
+export USERNAME=pedro
+echo $USERNAME
+unset USERNAME
+```
+
+Pipelines:
+```bash
+ls -l | grep minishell
+env | sort
+cat Makefile | wc -l
+```
+
+Redirections:
+```bash
+echo "Hello" > output.txt
+echo "World" >> output.txt
+cat < output.txt
+```
+
+Combining pipes and redirections:
+```bash
+ls -la | grep ".c" > sources.txt
+cat sources.txt | wc -l
+```
+
+Quote handling:
+```bash
+echo '$HOME'
+echo "$HOME"
+echo "User: $USER"
+```
+
+Exit status expansion:
+```bash
+ls existing_file
+echo $?
+
+ls missing_file
+echo $?
+```
+
+Here-documents:
+```bash
+cat << EOF
+Hello from minishell
+This text is passed through stdin
+EOF
+```
+
+Built-in commands:
+```bash
+pwd
+cd ..
+pwd
+env
+exit
 ```
 
 ---
@@ -126,3 +196,11 @@ echo $HOME
 
 - This implementation aims to be robust, readable, and maintainable while respecting the project specifications.
 - Compatible with Linux and MacOS
+
+## Known-Issues
+The built-in "export" cmd should replace a variable instead of duplicating. 
+For example: after executing the commands below, variable should be equal to "b". At the moment both as saved in the env list.
+```bash
+export variable=a
+export variable=b
+```  
