@@ -74,3 +74,23 @@ jobs:
       - name: Run ${{ matrix.label }}
         continue-on-error: ${{ matrix.target == 'test_norm' }}
         run: make ${{ matrix.target }}
+
+  minishell_build:
+    name: "Minishell: Build"
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Install Build Dependencies"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          build-essential \
+          libreadline-dev \
+          libncurses-dev
+
+      - name: Build Minishell
+        run: make
+
+      - name: Clean Build
+        run: make fclean
