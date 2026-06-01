@@ -6,7 +6,7 @@
 #    By: pecavalc <pecavalc@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/09/07 15:25:57 by pecavalc          #+#    #+#              #
-#    Updated: 2026/02/04 02:16:27 by pecavalc         ###   ########.fr        #
+#    Updated: 2026/06/01 11:54:51 by pecavalc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -102,20 +102,22 @@ LIBFT_DIR = libs/Libft-2.2.1
 LIBFT_HEADER_DIR = $(LIBFT_DIR)/include
 LIBFT = $(LIBFT_DIR)/libft.a
 
-# For Linux
-LDFLAGS = -lreadline -lhistory -lncurses
-CPPFLAGS = -I$(READLINE_PATH)/include
-
-# For Mac OS compatibility
-# READLINE_PATH := $(shell brew --prefix readline)
-# LDFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
-# CPPFLAGS = -I$(READLINE_PATH)/include
-
 CFLAGS = -g -Wall -Wextra -Werror -I$(HEADER_DIR) \
 								  -I$(PRIVATE_PARSER_HEADER_DIR) \
 							   	  -I$(LIBFT_HEADER_DIR) \
 							   	  -I$(PRIVATE_EXECUTE_HEADER_DIR) \
 							   	  -I$(PRIVATE_BUILTIN_HEADER_DIR)
+
+# Readline: platform-specific (macOs or Linux) linker settings
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S), Darwin)
+	READLINE_PATH := $(shell brew --prefix readline)
+	CFLAGS += -I$(READLINE_PATH)/include
+	LDFLAGS = -L$(READLINE_PATH)/lib -lreadline -lhistory
+else
+	LDFLAGS = -lreadline -lhistory -lncurses
+endif
 
 all: $(OBJ_DIRS) $(NAME)
 
@@ -126,13 +128,13 @@ $(OBJ_DIRS):
 # Compile minishell
 $(NAME): $(OBJ) $(PARSER_OBJ) $(LIBFT) $(OBJ_MAIN) \
 		 $(EXECUTE_OBJ) $(BUILTIN_OBJ)
-	cc $(CFLAGS) $(LDFLAGS) $(OBJ) $(PARSER_OBJ) \
+	cc $(CFLAGS) $(OBJ) $(PARSER_OBJ) \
 	   $(EXECUTE_OBJ) $(BUILTIN_OBJ) $(LIBFT) $(OBJ_MAIN) \
 	   $(LDFLAGS) -o $(NAME)
 
 # Build main obj in src
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(HEADER)
-	cc $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+	cc $(CFLAGS) -c $< -o $@
 
 # Build parser obj 
 $(PARSER_OBJ_DIR)/%.o: $(PARSER_SRC_DIR)/%.c $(PARSER_HEADERS)
